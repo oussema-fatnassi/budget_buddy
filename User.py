@@ -50,12 +50,28 @@ class User:
 
     password = input("Enter a password: ")
     print(check_password(password))
+    
+    def createWindow(self):
+        pygame.init()
+        windowWidth = 400
+        windowHeight = 600
+        BACKGROUND = (234, 234, 234)
+        BUTTON = (0, 171, 179)
+        TEXT = (60, 64, 72)
+        pygame.display.set_caption("User")
+        window = pygame.display.set_mode((windowWidth, windowHeight))
+        window.fill(BACKGROUND)
 
 
+        running = True
+        while running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
 
- 
+            pygame.display.update()
 
-
+        pygame.quit()
     
 if __name__ == "__main__":
     user = User("example_username", "example_password", "John", "Doe", "john@example.com")
