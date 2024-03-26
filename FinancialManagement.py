@@ -6,25 +6,28 @@ class FinancialManagement:
         self.transactions = []
         self.LoggedInUser = user
 
-    def add_transaction(self, transaction):                 # Add a transaction
+    def addTransaction(self, transaction):                 # Add a transaction
         self.transactions.append(transaction)
 
-    def get_transactions(self):                             # Get all transactions
-        return self.transactions
+    def getTransactions(self):                             # Return all transactions
+        return [transaction.name for transaction in self.transactions]
     
-    def searchByCategory(self):                             # Sort transactions by category
-        self.transactions.sort(key=lambda transaction: transaction.category)
+    def searchByCategory(self,Category):                    # Return only transactions matching the category
+        # self.transactions.sort(key=lambda transaction: transaction.category)   Sort the list of transactions by category in ascending order
+        return [transaction.name for transaction in self.transactions if transaction.category == Category]
     
-    def searchByDate(self):                                 # Sort transactions by date
-        self.transactions.sort(key=lambda transaction: transaction.date)
+    def searchByDate(self,date):                            # Return only transactions matching the date
+        # self.transactions.sort(key=lambda transaction: transaction.date)      Sort the list of transactions by date in ascending order
+        return [transaction.name for transaction in self.transactions if transaction.date == date]
     
-    def searchByType(self):                                 # Sort transactions by type (Income or Expense)
-        self.transactions.sort(key=lambda transaction: transaction.type)
+    def searchByType(self,type):                            # Return only transactions matching the type (Income or Expense)
+        # self.transactions.sort(key=lambda transaction: transaction.type)      Sort the list of transactions by type in ascending order
+        return [transaction.name for transaction in self.transactions if transaction.type == type]
         
-    def searchByAmountAscending(self):                      # Sort transactions by amount in ascending order
+    def sortByAmountAscending(self):                        # Sort transactions by amount in ascending order
         self.transactions.sort(key=lambda transaction: transaction.amount)
         
-    def searchByAmountDescending(self):                     # Sort transactions by amount in descending order
+    def sortByAmountDescending(self):                       # Sort transactions by amount in descending order
         self.transactions.sort(key=lambda transaction: transaction.amount, reverse=True)
         
     def sortByBetweenDates(self, startDate, endDate):       # Sort transactions between two dates
@@ -64,3 +67,26 @@ class FinancialManagement:
             if transaction.amount > 1000:
                 alerts.append(transaction)
         return alerts
+    
+
+Transaction1 = Transaction("salary", "monthly salary", 5000, "income", "Income", "2024-03-22")
+Transaction2 = Transaction("rent", "monthly rent", 1000, "expense", "Expense", "2024-03-25")
+Transaction3 = Transaction("loto", "lottery won", 2000, "games", "Income", "2024-03-28")
+Transaction4 = Transaction("groceries", "monthly groceries", 500, "food", "Expense", "2024-03-30")
+Transaction5 = Transaction("league", "new league skin", 200, "games", "Expense", "2024-03-31")
+
+Bank = FinancialManagement("Baptiste")
+Bank.addTransaction(Transaction1)
+Bank.addTransaction(Transaction2)
+Bank.addTransaction(Transaction3)
+Bank.addTransaction(Transaction4)
+Bank.addTransaction(Transaction5)
+print("Bank balance : ",Bank.getBalance())
+print(Bank.getTransactions())
+print(Bank.searchByCategory("games"))
+print(Bank.getTransactions())
+Bank.sortByAmountAscending()
+print(Bank.getTransactions())
+Bank.sortByAmountDescending()
+print(Bank.getTransactions())
+print(Bank.getMonthlySummary(3,2024))
