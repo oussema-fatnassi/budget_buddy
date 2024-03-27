@@ -17,9 +17,9 @@ class GUI:
         self.dropDown = None
         self.passwordInput = None
 
-    def createWindow(self):                                                                         # Method to create the window
+    def createWindow(self, windowTitle):                                                                         # Method to create the window
         pygame.init()
-        pygame.display.set_caption("Window")
+        pygame.display.set_caption(windowTitle)
         window = pygame.display.set_mode((self.windowWidth, self.windowHeight))
         window.fill(self.BACKGROUND)
         self.MANAGER = pygame_gui.UIManager((self.windowWidth, self.windowHeight))
@@ -106,7 +106,7 @@ class GUI:
 
 
     def main(self):                                                                                     # Main method to run the GUI
-        window = self.createWindow()
+        window = self.createWindow("GUI TEST")
         self.createTextInput(window, 50, 300, 300, 30)
         self.createButton(window, 50, 350, 100, 30, "LOGIN")
         self.createLabel(window, 50, 250, 100, 30, "Email")
