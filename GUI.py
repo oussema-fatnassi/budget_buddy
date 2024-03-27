@@ -94,6 +94,16 @@ class GUI:
         )
         print("Message box created.")
 
+    def createTextBox(self, window, pos_x, pos_y, width, height, text):                             # Method to create the text box
+        self.textBox = pygame_gui.elements.UITextBox(
+            relative_rect=pygame.Rect((pos_x, pos_y), (width, height)),
+            html_text=text,
+            manager=self.MANAGER,
+            object_id="text_box"
+        )
+
+
+
 
     def main(self):                                                                                     # Main method to run the GUI
         window = self.createWindow()
@@ -105,6 +115,7 @@ class GUI:
         self.set_text_hidden(True)
         self.createImage(window, 200, 100, 100, 100, "images/Logo.png") 
         self.createSelectionList(window, 50, 450, 200, 70, ["Option 1", "Option 2", "Option 3"],True) 
+        self.createTextBox(window, 50, 180, 300, 50, "YOU ARE POOR! GO TO WORK!")
 
         while True:
             for event in pygame.event.get():
