@@ -46,10 +46,12 @@ class User:
             return False
         print("Password meets the criteria.")
         return True
+    
+    # add hashPassword method here
 
 if __name__ == "__main__":                                                              # Main block to test the User class     
     user = User()
-    user.register("john@example.com", "example_Password1", "John", "Doe")
+    user.register("john@example.com", "example_Passwod1", "John", "Doe")
     user.login("john@example.com", "example_Password1")
     user.checkPassword("example_Password1")
     user.logout()
