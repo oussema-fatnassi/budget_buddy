@@ -1,5 +1,6 @@
 import re
 import pygame
+import hashlib
 
 class User:
     def __init__(self):                                                                 # Constructor to initialize the User object
@@ -9,14 +10,18 @@ class User:
         self.lastName = ""
 
     def login(self, email, password):                                                   # login method to log in the user                    
-            if email == self.email and self.checkPassword(password):
+            if email == self.email and self.password:
                 print("Logged in successfully.")
             else:
                 print("Login failed. Invalid email or password.")
 
     def register(self, email, password, firstName, lastName):                           # register method to register the user      
+        if not self.checkPassword(password):
+            print("Registration failed.")
+            return
+        
         self.email = email
-        self.password = password
+        self.password = self.hashPassword(password)                                     # hash the password before storing it
         self.firstName = firstName
         self.lastName = lastName
         print("Registration successful.")
@@ -47,7 +52,11 @@ class User:
         print("Password meets the criteria.")
         return True
     
-    # add hashPassword method here
+    def hashPassword(self, password):                                                   # hashPassword method to hash the password
+        hasher = hashlib.sha256()
+        hasher.update(password.encode('utf-8'))
+        hashedPassword = hasher.hexdigest()
+        return hashedPassword
 
 if __name__ == "__main__":                                                              # Main block to test the User class     
     user = User()
@@ -55,3 +64,6 @@ if __name__ == "__main__":                                                      
     user.login("john@example.com", "example_Password1")
     user.checkPassword("example_Password1")
     user.logout()
+
+    hashedPassword = user.hashPassword("example_Password1")
+    print("Hashed password:", hashedPassword)
