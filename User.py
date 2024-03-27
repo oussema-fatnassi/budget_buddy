@@ -1,79 +1,55 @@
-import pygame
 import re
+import pygame
 
 class User:
+    def __init__(self):                                                                 # Constructor to initialize the User object
+        self.email = ""
+        self.password = ""
+        self.firstName = ""
+        self.lastName = ""
 
-    username = ""
-    password = ""
-    firstName = ""
-    lastName = ""
-    email = ""
+    def login(self, email, password):                                                   # login method to log in the user                    
+            if email == self.email and self.checkPassword(password):
+                print("Logged in successfully.")
+            else:
+                print("Login failed. Invalid email or password.")
 
-    def login(self, username, password):
-        self.username = username
-        self.password = password
-
-    def register(self, username, password, firstName, lastName, email):
-        self.username = username
+    def register(self, email, password, firstName, lastName):                           # register method to register the user      
+        self.email = email
         self.password = password
         self.firstName = firstName
         self.lastName = lastName
-        self.email = email
+        print("Registration successful.")
 
-    def logout(self):
-        pass
+    def logout(self):                                                                   # logout method to log out the user      
+        self.email = ""
+        self.password = ""
+        self.firstName = ""
+        self.lastName = ""
+        print("Logged out.")
 
-    def __init__(self, username, password, firstName, lastName, email):
-        self.username = username
-        self.password = password
-        self.firstName = firstName
-        self.lastName = lastName
-        self.email = email
-
-    def check_password(password):
-        if len(password) < 10:                                  # Check if password is at least 10 characters long
+    def checkPassword(self, password):                                                  # checkPassword method to validate the password     
+        if len(password) < 10:
             print("Password must be at least 10 characters long.")
-        if not re.search(r'[A-Z]', password):                   # Check if password contains at least one uppercase letter
+            return False
+        if not re.search(r'[A-Z]', password):
             print("Password must contain at least one uppercase letter.")
-        if not re.search(r'[a-z]', password):                   # Check if password contains at least one lowercase letter
-            print("Password must contain at least one lowercase letter.")  
-        if not re.search(r'[^A-Za-z0-9]', password):            # Check if password contains at least one special character
+            return False
+        if not re.search(r'[a-z]', password):
+            print("Password must contain at least one lowercase letter.")
+            return False
+        if not re.search(r'[^A-Za-z0-9]', password):
             print("Password must contain at least one special character.")
-        if not re.search(r'\d', password):                      # Check if password contains at least one digit
+            return False
+        if not re.search(r'\d', password):
             print("Password must contain at least one digit.")
+            return False
+        print("Password meets the criteria.")
         return True
 
-    if check_password(password):
-        print("Password meets the criteria.")
-    else:
-        print("Password does not meet the criteria.")
-
-    password = input("Enter a password: ")
-    print(check_password(password))
-    
-    def createWindow(self):
-        pygame.init()
-        windowWidth = 400
-        windowHeight = 600
-        BACKGROUND = (234, 234, 234)
-        BUTTON = (0, 171, 179)
-        TEXT = (60, 64, 72)
-        pygame.display.set_caption("User")
-        window = pygame.display.set_mode((windowWidth, windowHeight))
-        window.fill(BACKGROUND)
-
-
-        running = True
-        while running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
-
-            pygame.display.update()
-
-        pygame.quit()
-    
-if __name__ == "__main__":
-    user = User("example_username", "example_password", "John", "Doe", "john@example.com")
-    user.createWindow()
-
+if __name__ == "__main__":                                                              # Main block to test the User class     
+    user = User()
+    user.register("john@example.com", "example_Password1", "John", "Doe")
+    user.login("john@example.com", "example_Password1")
+    user.checkPassword("example_Password1")
+    user.logout()
