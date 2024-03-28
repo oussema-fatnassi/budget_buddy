@@ -1,6 +1,7 @@
 import pygame
 import pygame_gui
 import sys
+from pygame_gui.windows.ui_message_window import UIMessageWindow
 from GUI import GUI
 from pygame_gui.core import ObjectID
 
@@ -43,12 +44,10 @@ def transactionList():
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_SELECTION_LIST_DOUBLE_CLICKED_SELECTION:
                     if event.ui_element == lastTransactionsList:
-                        # selected_item = event.text
-                        # message = gui.item_messages[selected_item]
-                        print("Double-click event detected")  # Debugging print statement
-                        pygame_gui.windows.UIMessageWindow(
+                        selected_item = event.text 
+                        UIMessageWindow(
                             rect=pygame.Rect((50, 50), (300, 300)),
-                            html_message="message",
+                            html_message=selected_item,  
                             manager=gui.MANAGER,
                             window_title='Message Box',
                             object_id="message_box"
@@ -56,8 +55,8 @@ def transactionList():
 
                 elif event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == confirmButton:
-                            categoryList = categoryList.selected_option
-                            print("Category selected:", categoryList)
+                        categoryList = categoryList.selected_option
+                        print("Category selected:", categoryList)
 
         window.fill(gui.BACKGROUND)
         gui.MANAGER.update(gui.uiRefreshRate)
