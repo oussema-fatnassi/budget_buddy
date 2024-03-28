@@ -39,12 +39,12 @@ class GUI:
         self.rect = self.image.get_rect(center=(pos_x, pos_y))
         window.blit(self.image, self.rect)
 
-    def createButton(self, window, pos_x, pos_y, width, height, text):                              # Method to create the button
+    def createButton(self, window, pos_x, pos_y, width, height, text, id):                              # Method to create the button
         self.button = pygame_gui.elements.UIButton(
             relative_rect=pygame.Rect((pos_x, pos_y), (width, height)),
             text=text,
             manager=self.MANAGER,
-            object_id="button"
+            object_id=id
         )
 
     def createLabel(self, window, pos_x, pos_y, width, height, text):                               # Method to create the label
@@ -55,13 +55,13 @@ class GUI:
             object_id="label"
         )
 
-    def createDropDown(self, window, pos_x, pos_y, width, height, options):                         # Method to create the drop down menu
+    def createDropDown(self, window, pos_x, pos_y, width, height, options, id):                         # Method to create the drop down menu
         self.dropDown = pygame_gui.elements.UIDropDownMenu(
             relative_rect=pygame.Rect((pos_x, pos_y), (width, height)),
             options_list=options,
             starting_option=options[0],
             manager=self.MANAGER,
-            object_id="drop_down"
+            object_id=id
         )
         self.dropDown.expand_on_option_click=False
     
