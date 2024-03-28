@@ -8,16 +8,16 @@ def userPage():
     window = gui.createWindow("User Page")
     clock = pygame.time.Clock()
     uiRefreshRate = clock.tick(60) / 10000.0
-    gui.createImage(window, 200, 100, 100, 100, "images/logo.png")
-    gui.createTextBox(window, 125, 200, 150, 50, "100000000 €")
-    # gui.createLabel(window, 20, 250, 100, 30, "Email")
-    # gui.createTextInput(window, 50, 300, 300, 30)
-    # gui.createLabel(window, 30, 350, 100, 30, "Password")
-    # gui.createPasswordInput(window, 50, 400, 300, 30)
-    # gui.set_text_hidden(True)
-    # gui.createButton(window, 150, 500, 100, 30, "LOGIN")
-    # gui.createButton(window, 150, 550, 100, 30, "REGISTER")
-
+    logo = gui.createImage(window, 50, 50, 50, 50, "images/logo.png")
+    logoutButton = gui.createButton(window, 325, 25, 50, 50, "Logout")
+    currentAmount = gui.createTextBox(window, 100, 100, 200, 100, "100000000 €")
+    addTransactionButton = gui.createButton(window, 50, 250, 50, 50, "Add")
+    transactionListButton = gui.createButton(window, 175, 250, 50, 50, "List")
+    filterButton = gui.createButton(window, 300, 250, 50, 50, "Filter")
+    monthlyRecapButton = gui.createButton(window, 50, 500, 50, 50, "Month")
+    alertsButton = gui.createButton(window, 175, 500, 50, 50, "Alerts")
+    graphicsButton = gui.createButton(window, 300, 500, 50, 50, "Graphics")
+    lastTransactionsList = gui.createSelectionList(window, 50, 350, 300, 100, ["Transaction 1", "Transaction 2", "Transaction 3", "Transaction 4", "Transaction 5"], True)
 
     while True:
         for event in pygame.event.get():
