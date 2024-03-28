@@ -80,12 +80,10 @@ def transactionList():
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_SELECTION_LIST_DOUBLE_CLICKED_SELECTION:
                     if event.ui_element == lastTransactionsList:
-                        # selected_item = event.text
-                        # message = gui.item_messages[selected_item]
-                        print("Double-click event detected")  # Debugging print statement
+                        selected_item = event.text
                         pygame_gui.windows.UIMessageWindow(
                             rect=pygame.Rect((50, 50), (300, 300)),
-                            html_message="message",
+                            html_message= selected_item,
                             manager=gui.MANAGER,
                             window_title='Message Box',
                             object_id="message_box"
