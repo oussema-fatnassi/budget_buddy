@@ -17,9 +17,9 @@ class GUI:
         self.dropDown = None
         self.passwordInput = None
 
-    def createWindow(self):                                                                         # Method to create the window
+    def createWindow(self, windowTitle):                                                                         # Method to create the window
         pygame.init()
-        pygame.display.set_caption("Window")
+        pygame.display.set_caption(windowTitle)
         window = pygame.display.set_mode((self.windowWidth, self.windowHeight))
         window.fill(self.BACKGROUND)
         self.MANAGER = pygame_gui.UIManager((self.windowWidth, self.windowHeight))
@@ -94,9 +94,16 @@ class GUI:
         )
         print("Message box created.")
 
+    def createTextBox(self, window, pos_x, pos_y, width, height, text):                             # Method to create the text box
+        self.textBox = pygame_gui.elements.UITextBox(
+            relative_rect=pygame.Rect((pos_x, pos_y), (width, height)),
+            html_text=text,
+            manager=self.MANAGER,
+            object_id="text_box"
+        )
 
     def main(self):                                                                                     # Main method to run the GUI
-        window = self.createWindow()
+        window = self.createWindow("GUI TEST")
         self.createTextInput(window, 50, 300, 300, 30)
         self.createButton(window, 50, 350, 100, 30, "LOGIN")
         self.createLabel(window, 50, 250, 100, 30, "Email")
@@ -105,6 +112,7 @@ class GUI:
         self.set_text_hidden(True)
         self.createImage(window, 200, 100, 100, 100, "images/Logo.png") 
         self.createSelectionList(window, 50, 450, 200, 70, ["Option 1", "Option 2", "Option 3"],True) 
+        self.createTextBox(window, 50, 180, 300, 50, "YOU ARE POOR! GO TO WORK!")
 
         while True:
             for event in pygame.event.get():
@@ -137,7 +145,6 @@ class GUI:
             self.createImage(window, 200, 100, 100, 100, "images/Logo.png")  
             self.MANAGER.draw_ui(window)  
             pygame.display.update()  
-
 
 if __name__ == "__main__":
     window = GUI()
