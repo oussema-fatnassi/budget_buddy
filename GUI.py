@@ -17,9 +17,9 @@ class GUI:
         self.dropDown = None
         self.passwordInput = None
 
-    def createWindow(self):                                                                         # Method to create the window
+    def createWindow(self,name):                                                                         # Method to create the window
         pygame.init()
-        pygame.display.set_caption("Window")
+        pygame.display.set_caption(name)
         window = pygame.display.set_mode((self.windowWidth, self.windowHeight))
         window.fill(self.BACKGROUND)
         self.MANAGER = pygame_gui.UIManager((self.windowWidth, self.windowHeight))
