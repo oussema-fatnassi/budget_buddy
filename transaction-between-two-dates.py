@@ -4,7 +4,7 @@ import sys
 from GUI import GUI
 from pygame_gui.core import ObjectID
 
-def transactionList():
+def transactionBetweenTwoDates():
     gui = GUI()
     window = gui.createWindow("Filter Transactions Between Two Dates")
     clock = pygame.time.Clock()
@@ -114,5 +114,5 @@ def transactionList():
         pygame.display.update()
 
 if __name__ == "__main__":
-    transactionList()
+    transactionBetweenTwoDates()
 
