@@ -9,22 +9,46 @@ class User:
         self.firstName = ""
         self.lastName = ""
 
+    def getEmail(self):
+        return self.email
+    
+    def getPassword(self):
+        return self.password
+    
+    def getFirstName(self):
+        return self.firstName
+    
+    def getLastName(self):
+        return self.lastName
+    
+    def setEmail(self, email):
+        self.email = email
+        
+    def setPassword(self, password):
+        self.password = password
+        
+    def setFirstName(self, firstName):
+        self.firstName = firstName
+        
+    def setLastName(self, lastName):
+        self.lastName = lastName
+
     def login(self, email, password):                                                   # login method to log in the user                    
-            if email == self.email and self.password:
+            if email == self.email and password == self.password:
                 print("Logged in successfully.")
             else:
                 print("Login failed. Invalid email or password.")
 
-    def register(self, email, password, firstName, lastName):                           # register method to register the user      
-        if not self.checkPassword(password):
-            print("Registration failed.")
-            return
-        
+    def register(self, email, password, firstName, lastName):                           # register method to register the user
+        if email == "" or password == "" or firstName == "" or lastName == "":
+            print("All fields are required.")
+            return      
         self.email = email
         self.password = self.hashPassword(password)                                     # hash the password before storing it
         self.firstName = firstName
         self.lastName = lastName
         print("Registration successful.")
+        print("Email:", self.email, "Password:", self.password, "First Name:", self.firstName, "Last Name:", self.lastName)
 
     def logout(self):                                                                   # logout method to log out the user      
         self.email = ""
