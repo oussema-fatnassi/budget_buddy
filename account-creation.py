@@ -56,8 +56,8 @@ def accountCreation():
         text="REGISTER",
         manager=gui.MANAGER,
     )
-
-    while True:
+    exit = False
+    while exit == False:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -66,6 +66,7 @@ def accountCreation():
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == loginButton:
                         print("Login Button Pressed")
+                        exit = True
                         # Go to the page login
                     elif event.ui_element == registerButton:
                         print("Register Button Pressed")
@@ -75,6 +76,7 @@ def accountCreation():
                         emailTextInput.set_text("")
                         passwordTextInput.set_text("")
                         confirmPasswordTextInput.set_text("")
+                        exit = True
                 elif event.user_type == pygame_gui.UI_TEXT_ENTRY_FINISHED:
                     if event.ui_element == firstNameInput:
                         print("First Name Entered:", event.text)
@@ -105,6 +107,8 @@ def accountCreation():
         gui.MANAGER.update(uiRefreshRate)
         gui.MANAGER.draw_ui(window)
         pygame.display.update()
+        
+    print("While loop exited.")
 
 if __name__ == "__main__":
     accountCreation()
