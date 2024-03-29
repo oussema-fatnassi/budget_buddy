@@ -1,6 +1,8 @@
 import re
 import pygame
 import hashlib
+import pygame_gui
+from GUI import GUI
 
 class User:
     def __init__(self):                                                                 # Constructor to initialize the User object
@@ -39,17 +41,37 @@ class User:
             else:
                 print("Login failed. Invalid email or password.")
 
-    def register(self, email, password, firstName, lastName):                           # register method to register the user
-        if email == "" or password == "" or firstName == "" or lastName == "":
+    def register(self, firstName, lastName, email, password, confirmed_password):                           # register method to register the user
+        if email == "" or password == "" or firstName == "" or lastName == "" or confirmed_password == "":
             print("All fields are required.")
-            return      
-        self.email = email
-        self.password = self.hashPassword(password)                                     # hash the password before storing it
-        self.firstName = firstName
-        self.lastName = lastName
-        print("Registration successful.")
-        print("Email:", self.email, "Password:", self.password, "First Name:", self.firstName, "Last Name:", self.lastName)
+            pygame_gui.windows.UIMessageWindow(
+                rect=pygame.Rect((50, 100), (300, 100)),
+                html_message="All fields are required.",
+                )
+            return
+        elif self.checkPassword(password) == False:
+            passwordText = "Password must be:\n- At least 10 characters long\n- Contain at least one uppercase letter\n- Contain at least one lowercase letter\n- Contain at least one digit\n- Contain at least one special character"
+            pygame_gui.windows.UIMessageWindow(
+                rect=pygame.Rect((25, 50), (350, 350)),
+                html_message=passwordText,
+                window_title='Password Criteria',
+                object_id="message_box"
+            )
+            return False
+        elif self.checkPassword(password) == True:
+            if password == confirmed_password:
+                self.email = email
+                self.password = self.hashPassword(password)                                     # hash the password before storing it
+                self.firstName = firstName
+                self.lastName = lastName
+                print("Registration successful.")
+                print("Email:", self.email, "Password:", self.password, "First Name:", self.firstName, "Last Name:", self.lastName)
+                return True
+            elif password != confirmed_password:
+                print("Passwords do not match.")
+                return False
 
+            
     def logout(self):                                                                   # logout method to log out the user      
         self.email = ""
         self.password = ""
