@@ -39,17 +39,25 @@ class User:
             else:
                 print("Login failed. Invalid email or password.")
 
-    def register(self, email, password, firstName, lastName):                           # register method to register the user
-        if email == "" or password == "" or firstName == "" or lastName == "":
+    def register(self, firstName, lastName, email, password, confirmed_password):                           # register method to register the user
+        if email == "" or password == "" or firstName == "" or lastName == "" or confirmed_password == "":
             print("All fields are required.")
-            return      
-        self.email = email
-        self.password = self.hashPassword(password)                                     # hash the password before storing it
-        self.firstName = firstName
-        self.lastName = lastName
-        print("Registration successful.")
-        print("Email:", self.email, "Password:", self.password, "First Name:", self.firstName, "Last Name:", self.lastName)
-
+            return
+        elif self.checkPassword(password) == False:
+            return False
+        elif self.checkPassword(password) == True:
+            if password == confirmed_password:
+                self.email = email
+                self.password = self.hashPassword(password)                                     # hash the password before storing it
+                self.firstName = firstName
+                self.lastName = lastName
+                print("Registration successful.")
+                print("Email:", self.email, "Password:", self.password, "First Name:", self.firstName, "Last Name:", self.lastName)
+                return True
+            elif password != confirmed_password:
+                print("Passwords do not match.")
+                return False
+            
     def logout(self):                                                                   # logout method to log out the user      
         self.email = ""
         self.password = ""
