@@ -38,14 +38,12 @@ def accountCreation():
         object_id="text_input"
     )
     passwordTextInput.set_text_hidden(True)
-    
     confirmPasswordTextInput = pygame_gui.elements.UITextEntryLine(
         relative_rect=pygame.Rect((20, 410), (300, 30)),
         manager=gui.MANAGER,
         object_id="text_input"
     )
     confirmPasswordTextInput.set_text_hidden(True)
-
     loginButton = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((150, 500), (100, 30)),
         text="LOGIN",
@@ -66,48 +64,21 @@ def accountCreation():
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == loginButton:
                         print("Login Button Pressed")
-                        exit = True
-                        # Go to the page login
+                        exit = True                             # Go to the page login
                     elif event.ui_element == registerButton:
                         print("Register Button Pressed")
-                        user.register(emailTextInput.get_text(), passwordTextInput.get_text(), firstNameInput.get_text(), lastNameInput.get_text())
-                        firstNameInput.set_text("")
-                        lastNameInput.set_text("")
-                        emailTextInput.set_text("")
-                        passwordTextInput.set_text("")
-                        confirmPasswordTextInput.set_text("")
-                        exit = True
-                elif event.user_type == pygame_gui.UI_TEXT_ENTRY_FINISHED:
-                    if event.ui_element == firstNameInput:
-                        print("First Name Entered:", event.text)
-                        user.setFirstName(event.text)
-                    elif event.ui_element == lastNameInput:
-                        print("Last Name Entered:", event.text)
-                        user.setLastName(event.text)
-                    elif event.ui_element == emailTextInput:
-                        print("Email Entered:", event.text)
-                        user.setEmail(event.text)
-                    elif event.ui_element == passwordTextInput:
-                        print("Password Entered:", event.text)
-                        if user.checkPassword(event.text):
-                            print("Password is valid.")
-                            tmp = event.text
-                        else:
-                            print("Password is invalid.")
+                        if user.register(firstNameInput.get_text(), lastNameInput.get_text(), emailTextInput.get_text(), passwordTextInput.get_text(), confirmPasswordTextInput.get_text()) == True:
+                            print("Registration successful v2")
+                            firstNameInput.set_text("")
+                            lastNameInput.set_text("")
+                            emailTextInput.set_text("")
                             passwordTextInput.set_text("")
-                    elif event.ui_element == confirmPasswordTextInput:
-                        print("Confirm Password Entered:", event.text)
-                        if tmp == event.text:
-                            print("Passwords match.")
-                            user.setPassword(event.text)
-                        else:
                             confirmPasswordTextInput.set_text("")
-
+                            exit = True                         # Go to the page login
             gui.MANAGER.process_events(event)
         gui.MANAGER.update(uiRefreshRate)
         gui.MANAGER.draw_ui(window)
         pygame.display.update()
-        
     print("While loop exited.")
 
 if __name__ == "__main__":
