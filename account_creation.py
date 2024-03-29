@@ -38,11 +38,11 @@ def accountCreation():
         object_id="text_input"
     )
     passwordTextInput.set_text_hidden(True)
-    
+
     showPasswordButton = pygame_gui.elements.UIButton(
-        relative_rect=pygame.Rect((330, 340), (60, 30)),
-        text="Show",
-        manager=gui.MANAGER,
+    relative_rect=pygame.Rect((330, 340), (60, 30)),
+    text="Show",
+    manager=gui.MANAGER,
     )
     confirmPasswordTextInput = pygame_gui.elements.UITextEntryLine(
         relative_rect=pygame.Rect((20, 410), (300, 30)),
@@ -52,10 +52,11 @@ def accountCreation():
     confirmPasswordTextInput.set_text_hidden(True)
 
     showConfirmPasswordButton = pygame_gui.elements.UIButton(
-        relative_rect=pygame.Rect((330, 410), (60, 30)),
-        text="Show",
-        manager=gui.MANAGER,
+    relative_rect=pygame.Rect((330, 410), (60, 30)),
+    text="Show",
+    manager=gui.MANAGER,
     )
+
     loginButton = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((150, 500), (100, 30)),
         text="LOGIN",
@@ -66,9 +67,8 @@ def accountCreation():
         text="REGISTER",
         manager=gui.MANAGER,
     )
-
-    showPassword = False
     exit = False
+    showPassword = False
     while exit == False:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -76,9 +76,6 @@ def accountCreation():
                 sys.exit()
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == loginButton:
-                        print("Login Button Pressed")
-                        exit = True
                     if event.ui_element == showPasswordButton:
                         if not showPassword:
                             # Show password
@@ -88,7 +85,7 @@ def accountCreation():
                             # Hide password
                             passwordTextInput.set_text_hidden(True)
                             showPassword = False
-                        showPasswordButton.pressed = False 
+                        showPasswordButton.pressed = False
                     if event.ui_element == showConfirmPasswordButton:
                         if not showPassword:
                             # Show password
@@ -98,55 +95,24 @@ def accountCreation():
                             # Hide password
                             confirmPasswordTextInput.set_text_hidden(True)
                             showPassword = False
+                    if event.ui_element == loginButton:
+                        print("Login Button Pressed")
+                        exit = True                             # Go to the page login
                     elif event.ui_element == registerButton:
                         print("Register Button Pressed")
-                        user.register(str(emailTextInput.get_text()), str(passwordTextInput.get_text()), str(firstNameInput.get_text()), str(lastNameInput.get_text()))
-                        firstNameInput.set_text("")
-                        lastNameInput.set_text("")
-                        emailTextInput.set_text("")
-                        passwordTextInput.set_text("")
-                        confirmPasswordTextInput.set_text("")
-                        exit = True
-                elif event.user_type == pygame_gui.UI_TEXT_ENTRY_FINISHED:
-                    if event.ui_element == firstNameInput:
-                        print("First Name Entered:", event.text)
-                        user.setFirstName(event.text)
-                    elif event.ui_element == lastNameInput:
-                        print("Last Name Entered:", event.text)
-                        user.setLastName(event.text)
-                    elif event.ui_element == emailTextInput:
-                        print("Email Entered:", event.text)
-                        user.setEmail(event.text)
-                    elif event.ui_element == passwordTextInput:
-                        print("Password Entered:", event.text)
-                        if user.checkPassword(event.text):
-                            print("Password is valid.")
-                            passwordTextInput = event.text
-                        else:
-                            print("Password is invalid.")
-                            passwordText = "Password must be:\n- At least 10 characters long\n- Contain at least one uppercase letter\n- Contain at least one lowercase letter\n- Contain at least one digit\n- Contain at least one special character"
-                            pygame_gui.windows.UIMessageWindow(
-                                rect=pygame.Rect((25, 50), (350, 350)),
-                                html_message=passwordText,  
-                                manager=gui.MANAGER,
-                                window_title='Password Criteria',  
-                                object_id="message_box"
-                            )
+                        if user.register(firstNameInput.get_text(), lastNameInput.get_text(), emailTextInput.get_text(), passwordTextInput.get_text(), confirmPasswordTextInput.get_text()) == True:
+                            print("Registration successful v2")
+                            firstNameInput.set_text("")
+                            lastNameInput.set_text("")
+                            emailTextInput.set_text("")
                             passwordTextInput.set_text("")
-                    elif event.ui_element == confirmPasswordTextInput:
-                        print("Confirm Password Entered:", event.text)
-                        if passwordTextInput == event.text:
-                            print("Passwords match.")
-                            user.setPassword(event.text)
-                        else:
                             confirmPasswordTextInput.set_text("")
-
+                            exit = True                         # Go to the page login
             gui.MANAGER.process_events(event)
-        window.fill(gui.BACKGROUND)
-        gui.MANAGER.update(gui.uiRefreshRate)
-        gui.createImage(window, 350, 50, 100, 100, "images/Logo.png")
+        gui.MANAGER.update(uiRefreshRate)
         gui.MANAGER.draw_ui(window)
         pygame.display.update()
+    print("While loop exited.")
 
 if __name__ == "__main__":
     accountCreation()
