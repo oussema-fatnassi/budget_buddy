@@ -17,6 +17,7 @@ def accountCreation():
     gui.createLabel(window, 10, 310, 85, 30, "Password")
     gui.createLabel(window, 10, 380, 150, 30, "Confirm Password")
 
+
     firstNameInput = pygame_gui.elements.UITextEntryLine(
         relative_rect=pygame.Rect((20, 130), (300, 30)),
         manager=gui.MANAGER,
@@ -109,8 +110,11 @@ def accountCreation():
                             confirmPasswordTextInput.set_text("")
                             exit = True                         # Go to the page login
             gui.MANAGER.process_events(event)
+
+        window.fill(gui.BACKGROUND)  
         gui.MANAGER.update(uiRefreshRate)
         gui.MANAGER.draw_ui(window)
+        gui.createImage(window, 350, 50, 100, 100, "images/logo.png")
         pygame.display.update()
     print("While loop exited.")
 
