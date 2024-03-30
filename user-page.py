@@ -11,59 +11,59 @@ def userPage():
     logo = gui.createImage(window, 50, 50, 50, 50, "images/logo.png")
 
     logoutButton = pygame_gui.elements.UIButton(
-        relative_rect=pygame.Rect((325, 25), (50, 50)),
-        text="Logout",
+        relative_rect=pygame.Rect((325, 25), (58, 58)),
+        text="",
         manager=gui.MANAGER,
-        object_id="button"
+        object_id="logout_button"
     )
     addTransactionButton = pygame_gui.elements.UIButton(
-        relative_rect=pygame.Rect((50, 250), (50, 50)),
-        text="Add",
+        relative_rect=pygame.Rect((50, 200), (58, 58)),
+        text="",
         manager=gui.MANAGER,
-        object_id="button"
+        object_id="add_transaction_button"
     )
     transactionListButton = pygame_gui.elements.UIButton(
-        relative_rect=pygame.Rect((175, 250), (50, 50)),
-        text="List",
+        relative_rect=pygame.Rect((175, 200), (58, 58)),
+        text="",
         manager=gui.MANAGER,
-        object_id="button"
+        object_id="transaction_list_button"
     )
     filterButton = pygame_gui.elements.UIButton(
-        relative_rect=pygame.Rect((300, 250), (50, 50)),
-        text="Filter",
+        relative_rect=pygame.Rect((300, 200), (58, 58)),
+        text="",
         manager=gui.MANAGER,
-        object_id="button"
+        object_id="filter_button"
     )
     monthlyRecapButton = pygame_gui.elements.UIButton(
-        relative_rect=pygame.Rect((50, 500), (50, 50)),
-        text="Month",
+        relative_rect=pygame.Rect((50, 500), (58, 58)),
+        text="",
         manager=gui.MANAGER,
-        object_id="button"
+        object_id="monthly_recap_button"
     )
     alertsButton = pygame_gui.elements.UIButton(
-        relative_rect=pygame.Rect((175, 500), (50, 50)),
-        text="Alerts",
+        relative_rect=pygame.Rect((175, 500), (58, 58)),
+        text="",
         manager=gui.MANAGER,
-        object_id="button"
+        object_id="alerts_button"
     )
     graphicsButton = pygame_gui.elements.UIButton(
-        relative_rect=pygame.Rect((300, 500), (50, 50)),
-        text="Graphics",
+        relative_rect=pygame.Rect((300, 500), (58, 58)),
+        text="",
         manager=gui.MANAGER,
-        object_id="button"
+        object_id="graphics_button"
     )
     lastTransactionsList = pygame_gui.elements.UISelectionList(
-        relative_rect=pygame.Rect((50, 350), (300, 100)),
+        relative_rect=pygame.Rect((50, 300), (300, 200)),
         item_list=["Transaction 1", "Transaction 2", "Transaction 3", "Transaction 4", "Transaction 5"],
         manager=gui.MANAGER,
         object_id="selection_list",
         allow_double_clicks=True
     )
-    currentAmaount = pygame_gui.elements.UITextBox(
-        relative_rect=pygame.Rect((100, 100), (200, 100)),
+    currentAmount = pygame_gui.elements.UITextBox(
+        relative_rect=pygame.Rect((100, 80), (200, 100)),
         html_text="100000000 €",
         manager=gui.MANAGER,
-        object_id="text_box"
+        object_id="current_amount_text_box"
     )
 
     while True:
