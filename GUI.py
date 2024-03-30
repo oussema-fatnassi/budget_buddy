@@ -22,7 +22,7 @@ class GUI:
         pygame.display.set_caption(windowTitle)
         window = pygame.display.set_mode((self.windowWidth, self.windowHeight))
         window.fill(self.BACKGROUND)
-        self.MANAGER = pygame_gui.UIManager((self.windowWidth, self.windowHeight))
+        self.MANAGER = pygame_gui.UIManager((self.windowWidth, self.windowHeight), "theme.json")
         return window
 
 
