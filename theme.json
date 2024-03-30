@@ -1,0 +1,79 @@
+{
+    "window":
+    {
+       "colours":
+       {
+          "dark_bg":"#21282D",
+          "normal_border": "#999999"
+       },
+ 
+       "misc":
+       {
+          "shape": "rounded_rectangle",
+          "shape_corner_radius": "10",
+          "border_width": "1",
+          "shadow_width": "15",
+          "title_bar_height": "20"
+       }
+    },
+    "window.#title_bar":
+    {
+       "misc":
+       {
+          "text_horiz_alignment": "center"
+       }
+    },
+    "text_entry_line":
+    {
+       "colours":
+       {
+          "normal_bg": "#FFFFFF",
+          "normal_text": "#000000",
+          "normal_border": "#999999",
+          "normal_selected_bg": "#000000",
+          "normal_selected_text": "#FFFFFF",
+          "normal_selected_border": "#999999",
+          "dark_bg": "#ffffff",
+          "selected_text": "#FFFFFF",
+          "disabled_bg": "#CCCCCC",
+          "disabled_text": "#666666",
+          "disabled_border": "#999999",
+          "disabled_selected_bg": "#666666",
+          "disabled_selected_text": "#CCCCCC",
+          "disabled_selected_border": "#999999"
+       },
+       "misc":
+       {
+          "shape": "rounded_rectangle",
+          "shape_corner_radius": "10",
+          "border_width": "2"
+       }
+    },
+    "button":
+    {
+       "colours":
+       {
+          "normal_bg": "#FFFFFF",
+          "normal_text": "#000000",
+          "normal_border": "#999999",
+          "normal_selected_bg": "#000000",
+          "normal_selected_text": "#FFFFFF",
+          "normal_selected_border": "#999999",
+          "dark_bg": "#ffffff",
+          "selected_text": "#FFFFFF",
+          "disabled_bg": "#CCCCCC",
+          "disabled_text": "#666666",
+          "disabled_border": "#999999",
+          "disabled_selected_bg": "#666666",
+          "disabled_selected_text": "#CCCCCC",
+          "disabled_selected_border": "#999999"
+       },
+       "misc":
+       {
+          "shape": "rounded_rectangle",
+          "shape_corner_radius": "10",
+          "border_width": "2"
+       }
+    }
+ }
+ 
