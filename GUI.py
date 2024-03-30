@@ -22,7 +22,7 @@ class GUI:
         pygame.display.set_caption(windowTitle)
         window = pygame.display.set_mode((self.windowWidth, self.windowHeight))
         window.fill(self.BACKGROUND)
-        self.MANAGER = pygame_gui.UIManager((self.windowWidth, self.windowHeight))
+        self.MANAGER = pygame_gui.UIManager((self.windowWidth, self.windowHeight), "theme.json")
         return window
 
 
@@ -54,14 +54,13 @@ class GUI:
             object_id="label"
         )
 
-    def createDropDown(self, window, pos_x, pos_y, width, height, options, id):                         # Method to create the drop down menu
+    def createDropDown(self, window, pos_x, pos_y, width, height, options):                         # Method to create the drop down menu
         self.dropDown = pygame_gui.elements.UIDropDownMenu(
             relative_rect=pygame.Rect((pos_x, pos_y), (width, height)),
             options_list=options,
             starting_option=options[0],
-            manager=self.MANAGER,
-            object_id=id
-        )
+            manager=self.MANAGER,        
+            )
         self.dropDown.expand_on_option_click=False
     
     def createSelectionList(self, window, pos_x, pos_y, width, height, options, bool):
