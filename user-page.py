@@ -61,7 +61,7 @@ def userPage():
     )
     currentAmount = pygame_gui.elements.UITextBox(
         relative_rect=pygame.Rect((100, 80), (200, 100)),
-        html_text="100000000 €",
+        html_text="10000 €",
         manager=gui.MANAGER,
         object_id="current_amount_text_box"
     )
