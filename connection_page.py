@@ -10,21 +10,39 @@ def connectionPage():
     clock = pygame.time.Clock()
     uiRefreshRate = clock.tick(60) / 10000.0
     gui.createImage(window, 200, 100, 100, 100, "images/logo.png")
-    gui.createLabel(window, 20, 250, 100, 30, "Email")
-    gui.createLabel(window, 30, 350, 100, 30, "Password")
     user = User()
 
-    emailInput = pygame_gui.elements.UITextEntryLine(
-        relative_rect=pygame.Rect((50, 300), (300, 30)),
+    emailLabel = pygame_gui.elements.UILabel(
+        relative_rect=pygame.Rect((10, 270), (60, 30)),
+        text="Email",
         manager=gui.MANAGER,
-        object_id="email_input"
+        object_id="label"
+    )
+    passwordLabel = pygame_gui.elements.UILabel(
+        relative_rect=pygame.Rect((10, 370), (85, 30)),
+        text="Password",
+        manager=gui.MANAGER,
+        object_id="label"
+    )
+
+    emailInput = pygame_gui.elements.UITextEntryLine(
+        relative_rect=pygame.Rect((40, 300), (300, 30)),
+        manager=gui.MANAGER,
+        object_id="text_input"
     )
     passwordInput = pygame_gui.elements.UITextEntryLine(
-        relative_rect=pygame.Rect((50, 400), (300, 30)),
+        relative_rect=pygame.Rect((40, 400), (300, 30)),
         manager=gui.MANAGER,
-        object_id="password_input"
+        object_id="text_input"
     )
     passwordInput.set_text_hidden(True)
+
+    showPasswordButton = pygame_gui.elements.UIButton(
+    relative_rect=pygame.Rect((350, 400), (33, 22)),
+    text="",
+    manager=gui.MANAGER,
+    object_id="show_password_button"
+    )
 
     loginButton = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((150, 500), (100, 30)),
@@ -39,6 +57,7 @@ def connectionPage():
         object_id="register_button"
     )
 
+    showPassword = False
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -53,6 +72,16 @@ def connectionPage():
                         print("Password: ", user.getPassword())
                     elif event.ui_element == registerButton:
                         print("Register button pressed")
+                    elif event.ui_element == showPasswordButton:
+                        if not showPassword:
+                            # Show password
+                            passwordInput.set_text_hidden(False)
+                            showPassword = True
+                        else:
+                            # Hide password
+                            passwordInput.set_text_hidden(True)
+                            showPassword = False
+                        showPasswordButton.pressed = False
                 if event.user_type == pygame_gui.UI_TEXT_ENTRY_FINISHED:
                     if event.ui_element == emailInput:
                         print("Email entered: ", emailInput.get_text())

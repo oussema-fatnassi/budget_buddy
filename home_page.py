@@ -15,14 +15,16 @@ def homePage():
     gui.createImage(window, 200, 175, 300, 300, "images/logo.png")
 
     loginButton = pygame_gui.elements.UIButton(
-        relative_rect=pygame.Rect((100, 500), (200, 30)),
+        relative_rect=pygame.Rect((150, 500), (100, 30)),
         text="LOGIN",
         manager=gui.MANAGER,
+        object_id="login_button_hp",
     )
     createAccountButton = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((100, 550), (200, 30)),
         text="CREATE NEW ACCOUNT",
         manager=gui.MANAGER,
+        object_id="create_account_button"
     )
     
     while True:

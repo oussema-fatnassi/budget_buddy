@@ -11,62 +11,90 @@ def accountCreation():
     clock = pygame.time.Clock()
     uiRefreshRate = clock.tick(60) / 10000.0
     gui.createImage(window, 350, 50, 100, 100, "images/logo.png")
-    gui.createLabel(window, 10, 100, 100, 30, "First Name")
-    gui.createLabel(window, 10, 170, 90, 30, "Last Name")
-    gui.createLabel(window, 10, 240, 60, 30, "Email")
-    gui.createLabel(window, 10, 310, 85, 30, "Password")
-    gui.createLabel(window, 10, 380, 150, 30, "Confirm Password")
-
+    firstNameLabel = pygame_gui.elements.UILabel(
+        relative_rect=pygame.Rect((10, 100), (100, 30)),
+        text="First Name",
+        manager=gui.MANAGER,
+        object_id="label"
+    )
+    lastNameLabel = pygame_gui.elements.UILabel(
+        relative_rect=pygame.Rect((10, 170), (90, 30)),
+        text="Last Name",
+        manager=gui.MANAGER,
+        object_id="label"
+    )
+    emailLabel = pygame_gui.elements.UILabel(
+        relative_rect=pygame.Rect((10, 240), (60, 30)),
+        text="Email",
+        manager=gui.MANAGER,
+        object_id="label"
+    )
+    passwordLabel = pygame_gui.elements.UILabel(
+        relative_rect=pygame.Rect((10, 310), (85, 30)),
+        text="Password",
+        manager=gui.MANAGER,
+        object_id="label"
+    )
+    confirmPasswordLabel = pygame_gui.elements.UILabel(
+        relative_rect=pygame.Rect((10, 380), (150, 30)),
+        text="Confirm Password",
+        manager=gui.MANAGER,
+        object_id="label"
+    )
 
     firstNameInput = pygame_gui.elements.UITextEntryLine(
-        relative_rect=pygame.Rect((20, 130), (300, 30)),
+        relative_rect=pygame.Rect((20, 130), (300, 40)),
         manager=gui.MANAGER,
         object_id="text_input"
     )
     lastNameInput = pygame_gui.elements.UITextEntryLine(
-        relative_rect=pygame.Rect((20, 200), (300, 30)),
+        relative_rect=pygame.Rect((20, 200), (300, 40)),
         manager=gui.MANAGER,
         object_id="text_input"
     )
     emailTextInput = pygame_gui.elements.UITextEntryLine(
-        relative_rect=pygame.Rect((20, 270), (300, 30)),
+        relative_rect=pygame.Rect((20, 270), (300, 40)),
         manager=gui.MANAGER,
         object_id="text_input"
     )
     passwordTextInput = pygame_gui.elements.UITextEntryLine(
-        relative_rect=pygame.Rect((20, 340), (300, 30)),
+        relative_rect=pygame.Rect((20, 340), (300, 40)),
         manager=gui.MANAGER,
         object_id="text_input"
     )
     passwordTextInput.set_text_hidden(True)
 
     showPasswordButton = pygame_gui.elements.UIButton(
-    relative_rect=pygame.Rect((330, 340), (60, 30)),
-    text="Show",
+    relative_rect=pygame.Rect((330, 345), (33, 22)),
+    text="",
     manager=gui.MANAGER,
+    object_id="show_password_button"
     )
     confirmPasswordTextInput = pygame_gui.elements.UITextEntryLine(
-        relative_rect=pygame.Rect((20, 410), (300, 30)),
+        relative_rect=pygame.Rect((20, 410), (300, 40)),
         manager=gui.MANAGER,
         object_id="text_input"
     )
     confirmPasswordTextInput.set_text_hidden(True)
 
     showConfirmPasswordButton = pygame_gui.elements.UIButton(
-    relative_rect=pygame.Rect((330, 410), (60, 30)),
-    text="Show",
+    relative_rect=pygame.Rect((330, 415), (33, 22)),
+    text="",
     manager=gui.MANAGER,
+    object_id="show_password_button"
     )
 
     loginButton = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((150, 500), (100, 30)),
         text="LOGIN",
         manager=gui.MANAGER,
+        object_id="login_button"
     )
     registerButton = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((150, 550), (100, 30)),
         text="REGISTER",
         manager=gui.MANAGER,
+        object_id="register_button"
     )
     exit = False
     showPassword = False
