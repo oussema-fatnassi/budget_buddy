@@ -1,0 +1,269 @@
+{
+    "window": {
+        "colours": {
+            "dark_bg": "#EEEEEE",
+            "normal_border": "#999999"
+        },
+        "misc": {
+            "shape": "rounded_rectangle",
+            "shape_corner_radius": "10",
+            "border_width": "1",
+            "shadow_width": "15",
+            "title_bar_height": "20"
+        }
+    },
+    "window.#title_bar": {
+        "misc": {
+            "text_horiz_alignment": "center"
+        }
+    },
+    "text_entry_line": {
+        "colours": {
+            "normal_bg": "#FFFFFF",
+            "normal_text": "#000000",
+            "normal_border": "#999999",
+            "normal_selected_bg": "#000000",
+            "normal_selected_text": "#FFFFFF",
+            "normal_selected_border": "#999999",
+            "dark_bg": "#ffffff",
+            "selected_text": "#FFFFFF",
+            "disabled_bg": "#CCCCCC",
+            "disabled_text": "#666666",
+            "disabled_border": "#999999",
+            "disabled_selected_bg": "#666666",
+            "disabled_selected_text": "#CCCCCC",
+            "disabled_selected_border": "#999999"
+        },
+        "misc": {
+            "shape": "rounded_rectangle",
+            "shape_corner_radius": "10",
+            "border_width": "2"
+        }
+    },
+
+       "logout_button":
+        {
+            "images":
+            {
+                "normal_image":{
+                    "path": "images/logout_normal.png"
+                },
+                "hovered_image":{
+                    "path":"images/logout_hover.png"
+                },
+                "selected_image":{
+                    "path":"images/logout_click.png"
+                }
+            },
+            "misc":
+            {
+                "shape" : "ellipse"
+            }
+       },
+
+       "add_transaction_button":
+       {
+           "images":
+           {
+               "normal_image":{
+                   "path": "images/add_transaction_normal.png"
+               },
+               "hovered_image":{
+                   "path":"images/add_transaction_hover.png"
+               },
+               "selected_image":{
+                   "path":"images/add_transaction_click.png"
+               }
+           },
+           "misc":
+           {
+               "shape" : "ellipse"
+           }
+      },
+
+      "transaction_list_button":
+      {
+          "images":
+          {
+              "normal_image":{
+                  "path": "images/transaction_list_normal.png"
+              },
+              "hovered_image":{
+                  "path":"images/transaction_list_hover.png"
+              },
+              "selected_image":{
+                  "path":"images/transaction_list_click.png"
+              }
+          },
+          "misc":
+          {
+              "shape" : "ellipse"
+          }
+     },
+     "filter_button":
+     {
+         "images":
+         {
+             "normal_image":{
+                 "path": "images/filter_normal.png"
+             },
+             "hovered_image":{
+                 "path":"images/filter_hover.png"
+             },
+             "selected_image":{
+                 "path":"images/filter_click.png"
+             }
+         },
+         "misc":
+         {
+             "shape" : "ellipse"
+         }
+    },
+    "monthly_recap_button":
+    {
+        "images":
+        {
+            "normal_image":{
+                "path": "images/monthly_recap_normal.png"
+            },
+            "hovered_image":{
+                "path":"images/monthly_recap_hover.png"
+            },
+            "selected_image":{
+                "path":"images/monthly_recap_click.png"
+            }
+        },
+        "misc":
+        {
+            "shape" : "ellipse"
+        }
+   },
+   "alerts_button":
+   {
+       "images":
+       {
+           "normal_image":{
+               "path": "images/alert_normal.png"
+           },
+           "hovered_image":{
+               "path":"images/alert_hover.png"
+           },
+           "selected_image":{
+               "path":"images/alert_click.png"
+           }
+       },
+       "misc":
+       {
+           "shape" : "ellipse"
+       }
+  },
+  "graphics_button":
+  {
+      "images":
+      {
+          "normal_image":{
+              "path": "images/graphics_normal.png"
+          },
+          "hovered_image":{
+              "path":"images/graphics_hover.png"
+          },
+          "selected_image":{
+              "path":"images/graphics_click.png"
+          }
+      },
+      "misc":
+      {
+          "shape" : "ellipse"
+      }
+    },
+
+    "selection_list":
+     {
+         "colours":
+         {
+             "dark_bg":"#EEEEEE",
+             "normal_border": "#999999"
+         },
+
+         "misc":
+         {
+             "shape": "rounded_rectangle",
+             "shape_corner_radius": "10",
+             "border_width": "0",
+             "shadow_width": "0",
+             "list_item_height": "30"
+
+         }
+     },
+     "selection_list.@selection_list_item":
+     {
+        "colours":
+         {
+            "selected_text":"#EEEEEE",
+            "normal_bg":"#FFFFFF",
+            "normal_text":"#393E46",
+            "dark_bg":"#EEEEEE"
+
+         },
+
+         "misc":
+         {
+            "border_width": "2",
+            "shape":"rounded_rectangle",
+            "shape_corner_radius":"10"
+         }
+     },
+     "current_amount_text_box":
+     {
+        "colours":
+        {
+            "dark_bg":"#FFFFFF",
+            "normal_text":"#393E46"
+        },
+        "misc":
+        {
+            "text_horiz_alignment":"center",
+            "text_vert_alignment":"center",
+            "shape":"rounded_rectangle",
+            "shape_corner_radius":"20",
+            "border_width":"2"
+        }
+     },
+     "button":
+     {
+        "colours":
+        {
+            "normal_bg":"#FFFFFF",
+            "active_bg":"#00ADB5",
+            "selected_bg":"#00ADB5",
+            "hovered_bg":"#C7C8CC",
+            "hovered_text":"#393E46",
+            "selected_text":"#393E46",
+            "active_text":"#393E46",
+            "normal_text":"#393E46"
+        }
+     },
+
+     "message_box":
+     {
+        "colours":
+        {
+            "dark_bg":"#C7C8CC",
+            "normal_bg":"#C7C8CC"
+        },
+        "misc":
+        {
+            "shape":"rounded_rectangle",
+            "shape_corner_radius":"10",
+            "border_width":"1",
+            "shadow_width":"10"
+        }
+     },
+     "message_box.#title_bar":
+     {
+        "colours":
+        {
+            "normal_text":"#393E46"
+        }
+     }
+}
