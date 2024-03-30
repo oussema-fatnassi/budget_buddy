@@ -4,6 +4,7 @@ import sys
 from GUI import GUI
 from account_creation import accountCreation
 from connection_page import connectionPage
+from user import User
 
 def homePage():
     

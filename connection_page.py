@@ -2,6 +2,7 @@ import pygame
 import pygame_gui
 import sys
 from GUI import GUI
+from user import User
 
 def connectionPage():
     gui = GUI()
@@ -11,6 +12,7 @@ def connectionPage():
     gui.createImage(window, 200, 100, 100, 100, "images/logo.png")
     gui.createLabel(window, 20, 250, 100, 30, "Email")
     gui.createLabel(window, 30, 350, 100, 30, "Password")
+    user = User()
 
     emailInput = pygame_gui.elements.UITextEntryLine(
         relative_rect=pygame.Rect((50, 300), (300, 30)),
@@ -46,6 +48,9 @@ def connectionPage():
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == loginButton:
                         print("Login button pressed")
+                        user.login(emailInput.get_text(), passwordInput.get_text())
+                        print("Email: ", user.getEmail())
+                        print("Password: ", user.getPassword())
                     elif event.ui_element == registerButton:
                         print("Register button pressed")
                 if event.user_type == pygame_gui.UI_TEXT_ENTRY_FINISHED:

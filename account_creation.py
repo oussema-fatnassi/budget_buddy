@@ -113,8 +113,8 @@ def accountCreation():
 
         window.fill(gui.BACKGROUND)  
         gui.MANAGER.update(uiRefreshRate)
-        gui.MANAGER.draw_ui(window)
         gui.createImage(window, 350, 50, 100, 100, "images/logo.png")
+        gui.MANAGER.draw_ui(window)
         pygame.display.update()
     print("While loop exited.")
 
