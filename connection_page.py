@@ -73,7 +73,8 @@ def connectionPage():
                         user.login(email, password)  # Pass email and password to the login method
                         if database_operation.verify_user(email, password):
                             print("Login successful.")
-                            userPage()
+                            user_retrieved = database_operation.get_user_data(email)
+                            userPage(user_retrieved)
                         else:
                             print("Login failed.")
                     elif event.ui_element == registerButton:
