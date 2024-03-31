@@ -2,8 +2,12 @@ import pygame
 import pygame_gui
 import sys
 from GUI import GUI
+from datetime import datetime
+from database_operation import insert_transaction_data, create_tables
+from transaction import Transaction
+from user import User
 
-def addTransaction():
+def addTransaction(user):
     gui = GUI()
     window = gui.createWindow("Add Transaction")
     clock = pygame.time.Clock()
@@ -82,32 +86,28 @@ def addTransaction():
                 pygame.quit()
                 sys.exit()
             gui.MANAGER.process_events(event)
-            if event.type == pygame_gui.UI_TEXT_ENTRY_FINISHED:
-                print("Entered text:", event.text)
-                if event.ui_element == Text1:
-                    print("text input 1")
-                    Text1 = event.text
-                elif event.ui_element == Text2:
-                    print("text input 2")
-                    Text2 = event.text
-                elif event.ui_element == Text3:
-                    print("text input 3")
-                    Text3 = event.text
-                print(Text1, Text2, Text3, Drop1, Drop2)
-            if event.type == pygame_gui.UI_DROP_DOWN_MENU_CHANGED:
-                print("Selected option:", event.text)
-                if event.ui_element == Drop1:
-                    print("drop down 1")
-                    Drop1 = event.text
-                elif event.ui_element == Drop2:
-                    print("drop down 2")
-                    Drop2 = event.text
-            if event.type == pygame.USEREVENT:
-                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == gui.button:
-                        # selected_item = event.text
-                        message = "Transaction added successfully! \n\nName: " + Text1 + "\nDescription: " + Text2 + "\nAmount: " + Text3 + "\nType: " + Drop1 + "\nCategory: " + Drop2
-                        gui.createMessageBox(window, 50, 50, 300, 300, message)
+            if event.type == pygame_gui.UI_BUTTON_PRESSED:
+                if event.ui_element == confirmButton:
+                    name = nameInput.get_text()
+                    description = descriptionInput.get_text()
+                    amount = float(amountInput.get_text())
+                    category = categoryInput.selected_option
+                    transaction_type = typeInput.selected_option
+                    date = datetime.now().strftime("%Y-%m-%d")
+                    
+                    # Create Transaction object
+                    transaction = Transaction(name, description, amount, category, transaction_type, date)
+                    
+                    # Insert transaction into the database
+                    insert_transaction_data(user.email, transaction)
+                    
+                    # Optionally, you can clear the input fields after adding the transaction
+                    nameInput.set_text('')
+                    descriptionInput.set_text('')
+                    amountInput.set_text('')
+                    
+                    # Provide feedback to the user
+                    print("Transaction added successfully!")
 
         window.fill(gui.BACKGROUND)
         gui.MANAGER.update(uiRefreshRate)
@@ -116,4 +116,6 @@ def addTransaction():
         pygame.display.update()
 
 if __name__ == "__main__":
-    addTransaction()
+    create_tables()
+    user = User()
+    addTransaction(user)
