@@ -2,6 +2,8 @@ import pygame
 import pygame_gui
 import sys
 from GUI import GUI
+from add_transaction import addTransaction
+from user import User
 
 def userPage():
     gui = GUI()
@@ -65,6 +67,7 @@ def userPage():
         manager=gui.MANAGER,
         object_id="current_amount_text_box"
     )
+    user = User()
 
     while True:
         for event in pygame.event.get():
@@ -88,8 +91,10 @@ def userPage():
 
                 elif event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == logoutButton:
+                        user.logout()
                         print("Logout button pressed.")
                     if event.ui_element == addTransactionButton:
+                        addTransaction(user)
                         print("Add transaction button pressed.")
                     if event.ui_element == transactionListButton:
                         print("Transaction list button pressed.")
