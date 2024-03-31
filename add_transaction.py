@@ -6,6 +6,8 @@ from datetime import datetime
 from database_operation import insert_transaction_data, create_tables
 from transaction import Transaction
 from user import User
+# from user_page import userPage
+from page_manager import PageManager
 
 def addTransaction(user):
     gui = GUI()
@@ -73,10 +75,16 @@ def addTransaction(user):
     )
 
     confirmButton = pygame_gui.elements.UIButton(
-        relative_rect=pygame.Rect((150, 550), (100, 30)),
+        relative_rect=pygame.Rect((150, 500), (100, 30)),
         text="CONFIRM",
         manager=gui.MANAGER,
         object_id="confirm_button"
+    )
+    closeButton = pygame_gui.elements.UIButton(
+        relative_rect=pygame.Rect((150, 550), (100, 30)),
+        text="CLOSE",
+        manager=gui.MANAGER,
+        object_id="close_button"
     )
 
 
@@ -97,7 +105,11 @@ def addTransaction(user):
                     
                     # Create Transaction object
                     transaction = Transaction(name, description, amount, category, transaction_type, date)
-                    
+                    transactioDetails = pygame_gui.windows.UIMessageWindow(
+                        rect=pygame.Rect((50, 50), (300, 300)),
+                        manager=gui.MANAGER,
+                        html_message=f"Name: {transaction.name}<br>Description: {transaction.description}<br>Amount: {transaction.amount}<br>Category: {transaction.category}<br>Type: {transaction.type}<br>Date: {transaction.date}"
+                    )
                     # Insert transaction into the database
                     insert_transaction_data(user.email, transaction)
                     
@@ -108,6 +120,8 @@ def addTransaction(user):
                     
                     # Provide feedback to the user
                     print("Transaction added successfully!")
+                if event.ui_element == closeButton:
+                    PageManager.show_user_page()
 
         window.fill(gui.BACKGROUND)
         gui.MANAGER.update(uiRefreshRate)
