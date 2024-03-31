@@ -36,7 +36,7 @@ class User:
         self.lastName = lastName
 
     def login(self, email, password):                                                   # login method to log in the user                    
-            if email == self.email and password == self.password:
+            if email == self.email and self.password == self.hashPassword(password):
                 print("Logged in successfully.")
             else:
                 print("Login failed. Invalid email or password.")
@@ -106,10 +106,3 @@ class User:
 
 if __name__ == "__main__":                                                              # Main block to test the User class     
     user = User()
-    user.register("john@example.com", "example_Passwod1", "John", "Doe")
-    user.login("john@example.com", "example_Password1")
-    user.checkPassword("example_Password1")
-    user.logout()
-
-    hashedPassword = user.hashPassword("example_Password1")
-    print("Hashed password:", hashedPassword)
