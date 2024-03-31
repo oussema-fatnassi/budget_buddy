@@ -3,8 +3,8 @@ import pygame_gui
 import sys
 from GUI import GUI
 from user import User
-from connection_page import connectionPage
 from database_operation import create_tables, insert_user_data
+from page_manager import PageManager
 
 def accountCreation():
     gui = GUI()
@@ -129,7 +129,7 @@ def accountCreation():
                     if event.ui_element == loginButton:
                         print("Login Button Pressed")
                         exit = True                             # Go to the page login
-                        connectionPage()
+                        PageManager.show_connection_page()
                     elif event.ui_element == registerButton:
                         print("Register Button Pressed")
                         hashPassword = user.hashPassword(passwordTextInput.get_text())
@@ -143,7 +143,7 @@ def accountCreation():
                             passwordTextInput.set_text("")
                             confirmPasswordTextInput.set_text("")
                             exit = True                         # Go to the page login
-                            connectionPage()
+                            PageManager.show_connection_page()
             gui.MANAGER.process_events(event)
 
         window.fill(gui.BACKGROUND)  
