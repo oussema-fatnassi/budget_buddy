@@ -1,6 +1,6 @@
 import mysql.connector
 
-def create_tables():
+def create_tables():                                                                # create_tables method to create the users and transactions tables in the database
     try:
         connection = mysql.connector.connect(
             host="localhost",
@@ -53,7 +53,7 @@ def create_tables():
             connection.close()
             print("MySQL connection is closed.")
 
-def insert_user_data(first_name, last_name, email, password):
+def insert_user_data(first_name, last_name, email, password):                           # insert_user_data method to insert user data into the database       
     try:
         connection = mysql.connector.connect(
             host="localhost",
@@ -64,12 +64,9 @@ def insert_user_data(first_name, last_name, email, password):
 
         cursor = connection.cursor()
 
-        # Define the SQL query to insert user data into the database
-        sql = "INSERT INTO users (first_name, last_name, email, password) VALUES (%s, %s, %s, %s)"
-        # Execute the query with user data
-        cursor.execute(sql, (first_name, last_name, email, password))
+        sql = "INSERT INTO users (first_name, last_name, email, password) VALUES (%s, %s, %s, %s)"      # Define the SQL query to insert user data into the database
+        cursor.execute(sql, (first_name, last_name, email, password))                                   # Execute the query with user data
 
-        # Commit changes to the database
         connection.commit()
         print("User data inserted successfully.")
 
@@ -93,17 +90,13 @@ def verify_user(email, password):
 
         cursor = connection.cursor()
 
-        # Define the SQL query to select user data based on email and password
-        sql = "SELECT * FROM users WHERE email = %s AND password = %s"
+        sql = "SELECT * FROM users WHERE email = %s AND password = %s"                                      # Define the SQL query to verify user data       
         
-        # Execute the query with user data
         cursor.execute(sql, (email, password))
         
-        # Fetch the result
         result = cursor.fetchone()
 
-        # Check if result is not empty, indicating successful verification
-        if result:
+        if result:                                                                                          # Check if the user exists and the password is correct            
             print("User verified successfully.")
             return True
         else:
@@ -120,7 +113,34 @@ def verify_user(email, password):
             connection.close()
             print("MySQL connection is closed.")
 
-def insert_transaction_data(email, transaction):
+def get_user_data(email):                                                               # get_user_data method to retrieve user data from the database
+    try:
+        connection = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="O*9GU9A9",
+            database="budget_buddy"
+        )
+        cursor = connection.cursor()
+
+        sql = "SELECT * FROM users WHERE email = %s "                                   # SQL query to retrieve user data based on email
+        
+        cursor.execute(sql, (email,))                                                   # Execute the query with user data             
+        
+        result = cursor.fetchall()                                                      # Fetch all the results           
+        return result[0]
+
+    except mysql.connector.Error as error:
+        print("Error getting user in MySQL:", error)
+        return False
+
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+            print("MySQL connection is closed.")
+
+def insert_transaction_data(user_id, transaction):
     try:
         connection = mysql.connector.connect(
             host="localhost",
@@ -131,21 +151,15 @@ def insert_transaction_data(email, transaction):
 
         cursor = connection.cursor()
 
-        # Retrieve the user's ID based on their email
-        cursor.execute("SELECT id FROM users WHERE email = %s", (email,))
+        cursor.execute("SELECT id FROM users WHERE id = %s", (user_id,))                        # Define the SQL query to retrieve the user's ID based on their email
         result = cursor.fetchone()
-
-        if result:  # Check if a user with the given email exists
-            user_id = result[0]
-            # Define the SQL query to insert transaction data into the database
+        print(result)
+        print(user_id)
+        if result:                                                                              # Check if the user exists
             sql = "INSERT INTO transaction (user_id, name, description, amount, category, type, date) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-            # Execute the query with transaction data
             cursor.execute(sql, (user_id, transaction.name, transaction.description, transaction.amount, transaction.category, transaction.type, transaction.date))
-            # Commit changes to the database
             connection.commit()
             print("Transaction data inserted successfully.")
-        else:
-            print("User with email {} not found.".format(email))
 
     except mysql.connector.Error as error:
         print("Error inserting transaction data into MySQL table:", error)
