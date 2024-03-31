@@ -10,6 +10,7 @@ class User:
         self.password = ""
         self.firstName = ""
         self.lastName = ""
+        self.id = 0
 
     def getEmail(self):
         return self.email
@@ -23,6 +24,9 @@ class User:
     def getLastName(self):
         return self.lastName
     
+    def getId(self):
+        return self.id
+    
     def setEmail(self, email):
         self.email = email
         
@@ -34,6 +38,9 @@ class User:
         
     def setLastName(self, lastName):
         self.lastName = lastName
+
+    def setId(self, id):
+        self.id = id
 
     def login(self, email, password):                                                   # login method to log in the user                    
             if email == self.email and self.password == self.hashPassword(password):
