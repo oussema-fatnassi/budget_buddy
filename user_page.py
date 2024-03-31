@@ -5,7 +5,7 @@ from GUI import GUI
 from user import User
 from page_manager import PageManager
 
-def userPage():
+def userPage(retrieved_user):
     gui = GUI()
     window = gui.createWindow("User Page")
     clock = pygame.time.Clock()
@@ -67,7 +67,13 @@ def userPage():
         manager=gui.MANAGER,
         object_id="current_amount_text_box"
     )
+
     user = User()
+    # print("Retrieved user" + retrieved_user)
+    user.setEmail(retrieved_user[3])                                        # Set the user's email
+    user.setId(retrieved_user[0])
+    user.setFirstName(retrieved_user[1])
+    user.setLastName(retrieved_user[2])
 
     while True:
         for event in pygame.event.get():
