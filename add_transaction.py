@@ -110,7 +110,7 @@ def addTransaction(user):
                         html_message=f"Name: {transaction.name}<br>Description: {transaction.description}<br>Amount: {transaction.amount}<br>Category: {transaction.category}<br>Type: {transaction.type}<br>Date: {transaction.date}"
                     )
                     # Insert transaction into the database
-                    insert_transaction_data(user.email, transaction)
+                    insert_transaction_data(user.id, transaction)
                     
                     # Optionally, you can clear the input fields after adding the transaction
                     nameInput.set_text('')
