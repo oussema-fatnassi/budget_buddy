@@ -332,5 +332,21 @@
             "border_width": "0",
             "shadow_width": "0"
         }
+    },
+    "confirm_button": {
+        "colours": {
+            "normal_bg": "#FFFFFF",
+            "hovered_bg": "#C7C8CC",
+            "selected_bg": "#00ADB5",
+            "normal_text": "#393E46",
+            "hovered_text": "#393E46",
+            "selected_text": "#00ADB5"
+        },
+        "misc": {
+            "shape": "rounded_rectangle",
+            "shape_corner_radius": "20",
+            "border_width": "0",
+            "shadow_width": "0"
+        }
     }
 }
