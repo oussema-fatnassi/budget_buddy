@@ -2,9 +2,10 @@ import pygame
 import pygame_gui
 import sys
 from GUI import GUI
-from account_creation import accountCreation
-from connection_page import connectionPage
+# from account_creation import accountCreation
+# from connection_page import connectionPage
 from user import User
+from page_manager import PageManager
 
 def homePage():
     
@@ -36,11 +37,11 @@ def homePage():
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == loginButton:
                         print("Login button pressed")
-                        connectionPage()
+                        PageManager.show_connection_page()
                     elif event.ui_element == createAccountButton:
                         print("Create Account button pressed")
-                        accountCreation()
-                        connectionPage()
+                        PageManager.show_account_creation_page()
+                        PageManager.show_connection_page()
 
             gui.MANAGER.process_events(event)
         gui.MANAGER.update(uiRefreshRate)
