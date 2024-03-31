@@ -4,7 +4,7 @@ import sys
 from GUI import GUI
 from user import User
 from connection_page import connectionPage
-from database_operation import create_user_table, insert_user_data
+from database_operation import create_tables, insert_user_data
 
 def accountCreation():
     gui = GUI()
@@ -135,7 +135,7 @@ def accountCreation():
                         hashPassword = user.hashPassword(passwordTextInput.get_text())
                         if user.register(firstNameInput.get_text(), lastNameInput.get_text(), emailTextInput.get_text(), passwordTextInput.get_text(), confirmPasswordTextInput.get_text()) == True:
                             print("Registration successful v2")
-                            create_user_table()                                                                                             # Create the users table if it doesn't exist            
+                            create_tables()                                                                                             # Create the users table if it doesn't exist            
                             insert_user_data(firstNameInput.get_text(), lastNameInput.get_text(), emailTextInput.get_text(), hashPassword)  # Insert user data into the database
                             firstNameInput.set_text("")
                             lastNameInput.set_text("")
@@ -143,6 +143,7 @@ def accountCreation():
                             passwordTextInput.set_text("")
                             confirmPasswordTextInput.set_text("")
                             exit = True                         # Go to the page login
+                            connectionPage()
             gui.MANAGER.process_events(event)
 
         window.fill(gui.BACKGROUND)  
