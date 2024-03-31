@@ -2,8 +2,8 @@ import pygame
 import pygame_gui
 import sys
 from GUI import GUI
-from add_transaction import addTransaction
 from user import User
+from page_manager import PageManager
 
 def userPage():
     gui = GUI()
@@ -92,20 +92,19 @@ def userPage():
                 elif event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == logoutButton:
                         user.logout()
-                        print("Logout button pressed.")
+                        PageManager.show_home_page()
                     if event.ui_element == addTransactionButton:
-                        addTransaction(user)
-                        print("Add transaction button pressed.")
+                        PageManager.show_add_transaction_page(user)
                     if event.ui_element == transactionListButton:
-                        print("Transaction list button pressed.")
+                        PageManager.show_transaction_list_page()
                     if event.ui_element == filterButton:
-                        print("Filter button pressed.")
+                        PageManager.show_filter_page()
                     if event.ui_element == monthlyRecapButton:
-                        print("Monthly recap button pressed.")
+                        PageManager.show_monthly_recap_page()
                     if event.ui_element == alertsButton:
-                        print("Alerts button pressed.")
+                        PageManager.show_alerts_page()
                     if event.ui_element == graphicsButton:
-                        print("Graphics button pressed.")
+                        PageManager.show_graphics_page()
 
         window.fill(gui.BACKGROUND)
         gui.MANAGER.update(gui.uiRefreshRate)
