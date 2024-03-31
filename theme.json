@@ -50,15 +50,6 @@
         "misc":{
             "shadow_width": "0",
             "border_width": "0"
-        },
-        "font": {
-            "name": "Roboto",
-            "regular_path": "Fonts/Roboto-Light.ttf",
-            "style": "light",
-            "size": "15",
-            "colour": "#393E46",
-            "alignment": "center",
-            "vertical_alignment": "center"
         }
     },
     "logout_button": {
@@ -227,16 +218,6 @@
             "shape": "rounded_rectangle",
             "shape_corner_radius": "20",
             "border_width": "2"
-        },
-        "font": {
-            "name": "Roboto",
-            "regular_path": "Fonts/Roboto-Regular.ttf",
-            "bold_path": "Fonts/Roboto-Bold.ttf",
-            "size": "30",
-            "bold": "2",
-            "colour": "#393E46",
-            "alignment": "center",
-            "vertical_alignment": "center"
         }
     },
     "button": {
