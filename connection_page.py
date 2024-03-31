@@ -3,6 +3,8 @@ import pygame_gui
 import sys
 from GUI import GUI
 from user import User
+import database_operation
+from user_page import userPage
 
 def connectionPage():
     gui = GUI()
@@ -38,10 +40,10 @@ def connectionPage():
     passwordInput.set_text_hidden(True)
 
     showPasswordButton = pygame_gui.elements.UIButton(
-    relative_rect=pygame.Rect((350, 400), (33, 22)),
-    text="",
-    manager=gui.MANAGER,
-    object_id="show_password_button"
+        relative_rect=pygame.Rect((350, 400), (33, 22)),
+        text="",
+        manager=gui.MANAGER,
+        object_id="show_password_button"
     )
 
     loginButton = pygame_gui.elements.UIButton(
@@ -66,12 +68,16 @@ def connectionPage():
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == loginButton:
-                        print("Login button pressed")
-                        user.login(emailInput.get_text(), passwordInput.get_text())
-                        print("Email: ", user.getEmail())
-                        print("Password: ", user.getPassword())
+                        email = emailInput.get_text()  # Retrieve email entered by the user
+                        password = user.hashPassword(passwordInput.get_text())  # Retrieve password entered by the user
+                        user.login(email, password)  # Pass email and password to the login method
+                        if database_operation.verify_user(email, password):
+                            print("Login successful.")
+                            userPage()
+                        else:
+                            print("Login failed.")
                     elif event.ui_element == registerButton:
-                        print("Register button pressed")
+                        pass
                     elif event.ui_element == showPasswordButton:
                         if not showPassword:
                             # Show password
