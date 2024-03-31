@@ -6,7 +6,6 @@ from datetime import datetime
 from database_operation import insert_transaction_data, create_tables
 from transaction import Transaction
 from user import User
-# from user_page import userPage
 from page_manager import PageManager
 
 def addTransaction(user):
