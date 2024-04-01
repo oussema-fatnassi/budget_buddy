@@ -25,7 +25,7 @@ def monthlyTransactionList(retrieved_user):
         starting_option="January",
         manager=gui.MANAGER,)
     selectYearLabel = pygame_gui.elements.UILabel(
-        relative_rect=pygame.Rect((20, 160), (150, 30)),
+        relative_rect=pygame.Rect((15, 160), (150, 30)),
         text="Select a year :",
         manager=gui.MANAGER,
         object_id="label"
@@ -53,6 +53,31 @@ def monthlyTransactionList(retrieved_user):
     object_id="close_button"
     )
 
+    monthlyIncome = pygame_gui.elements.UITextBox(
+        relative_rect=pygame.Rect((180, 200), (150, 30)),
+        html_text="",
+        manager=gui.MANAGER,
+        object_id="text_box"
+    )
+    monthlyExpense = pygame_gui.elements.UITextBox(
+        relative_rect=pygame.Rect((180, 240), (150, 30)),
+        html_text="",
+        manager=gui.MANAGER,
+        object_id="text_box"
+    )
+    montlyIncomeLabel = pygame_gui.elements.UILabel(
+        relative_rect=pygame.Rect((22, 200), (150, 30)),
+        text="Monthly Income :",
+        manager=gui.MANAGER,
+        object_id="label"
+    )
+    monthlyExpenseLabel = pygame_gui.elements.UILabel(
+        relative_rect=pygame.Rect((26, 240), (150, 30)),
+        text="Monthly Expense :",
+        manager=gui.MANAGER,
+        object_id="label"
+    )
+
     all_transactions = database_operation.get_all_transactions(retrieved_user[0])
     lastTransactionsList.add_items(all_transactions)
     
@@ -72,10 +97,21 @@ def monthlyTransactionList(retrieved_user):
                         month_number = datetime.datetime.strptime(selected_month, "%B").month                                        # Convert month name to number                 
                         selected_month_year = datetime.date(selected_year, month_number,1)                                              # Format the selected date   
 
-                        transactions = database_operation.get_monthly_transactions(retrieved_user[0], month_number, selected_year)  # Get transactions for the selected month
+                        transactions, total_income, total_expenses = database_operation.get_monthly_transactions(retrieved_user[0], month_number, selected_year)
+
+                        # Display transactions in the list
                         lastTransactionsList.remove_items(all_transactions)
                         lastTransactionsList.add_items(transactions)
-                        
+
+                        # Display total income and expenses
+                        monthlyIncome.html_text = ""
+                        monthlyIncome_text = str(total_income)
+                        monthlyIncome.append_html_text(monthlyIncome_text)
+
+                        monthlyExpense.html_text = ""
+                        monthlyExpense_text = str(total_expenses)
+                        monthlyExpense.append_html_text(monthlyExpense_text)
+
                 elif event.user_type == pygame_gui.UI_SELECTION_LIST_DOUBLE_CLICKED_SELECTION:
                     if event.ui_element == lastTransactionsList:
                         selected_item = event.text
