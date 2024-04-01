@@ -4,6 +4,8 @@ import sys
 from GUI import GUI
 from pygame_gui.core import ObjectID
 from page_manager import PageManager
+import database_operation
+import datetime
 
 def sortBetweenTwoDates(retrieved_user):
     gui = GUI()
@@ -32,7 +34,7 @@ def sortBetweenTwoDates(retrieved_user):
 
     lastTransactionsList = pygame_gui.elements.UISelectionList(
         relative_rect=pygame.Rect((50, 300), (300, 150)),
-        item_list=["Transaction 1", "Transaction 2", "Transaction 3", "Transaction 4", "Transaction 5"],
+        item_list=[],
         manager=gui.MANAGER,
         object_id=ObjectID("selection_list")
     )
@@ -91,6 +93,9 @@ def sortBetweenTwoDates(retrieved_user):
     object_id="close_button"
     )
 
+    all_transactions = database_operation.get_all_transactions(retrieved_user[0])
+    lastTransactionsList.add_items(all_transactions)
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -103,17 +108,40 @@ def sortBetweenTwoDates(retrieved_user):
                 if event.user_type == pygame_gui.UI_SELECTION_LIST_DOUBLE_CLICKED_SELECTION:
                     if event.ui_element == lastTransactionsList:
                         selected_item = event.text
+                        transaction_details = database_operation.get_transaction_details(selected_item, retrieved_user[0])
+                        details_text = ""
+                        if transaction_details:
+                            details_text = f"<b>Name:</b> {transaction_details['name']}<br>" \
+                               f"<b>Description:</b> {transaction_details['description']}<br>" \
+                               f"<b>Amount: € </b> {transaction_details['amount']}<br>" \
+                               f"<b>Category:</b> {transaction_details['category']}<br>" \
+                               f"<b>Type:</b> {transaction_details['type']}<br>" \
+                               f"<b>Date:</b> {transaction_details['date']}"
                         pygame_gui.windows.UIMessageWindow(
                             rect=pygame.Rect((50, 50), (300, 300)),
-                            html_message= selected_item,
+                            html_message= details_text,
                             manager=gui.MANAGER,
-                            window_title='Message Box',
+                            window_title='Transaction Details',
                             object_id="message_box"
                         )
 
                 elif event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == confirmButton:
-                        pass
+                        day1 = int(dayList1.selected_option)
+                        month1 = monthList1.selected_option
+                        year1 = int(yearList1.selected_option)
+                        day2 = int(dayList2.selected_option)
+                        month2 = monthList2.selected_option
+                        year2 = int(yearList2.selected_option)
+
+                        month_number1 = datetime.datetime.strptime(month1, "%B").month                                          # Convert month name to number                 
+                        start_date = datetime.date(year1, month_number1, day1)                                               # Format the selected date   
+                        month_number2 = datetime.datetime.strptime(month2, "%B").month                                        
+                        end_date = datetime.date(year2, month_number2, day2)   
+
+                        transactions = database_operation.get_transactions_between_dates(retrieved_user[0], start_date, end_date)
+                        lastTransactionsList.remove_items(all_transactions)                                                     # Remove all transactions from the list
+                        lastTransactionsList.add_items(transactions)                                                            # Get transactions for the selected date
                     if event.ui_element == closeButton:
                         PageManager.show_filter_page(retrieved_user)
 
