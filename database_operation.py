@@ -238,3 +238,36 @@ def get_transaction_details(transaction_name, user_id):
             connection.close()
             print("MySQL connection is closed.")
 
+def get_current_amount(user_id):
+    try:
+        connection = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="O*9GU9A9",
+            database="budget_buddy"
+        )
+        cursor = connection.cursor()
+
+        # Retrieve total income
+        cursor.execute("SELECT COALESCE(SUM(amount), 0) FROM transaction WHERE user_id = %s AND type = 'Income'", (user_id,))
+        income_result = cursor.fetchone()[0]
+        income = income_result if income_result else 0
+
+        # Retrieve total expenses
+        cursor.execute("SELECT COALESCE(SUM(amount), 0) FROM transaction WHERE user_id = %s AND type = 'Expense'", (user_id,))
+        expenses_result = cursor.fetchone()[0]
+        expenses = expenses_result if expenses_result else 0
+
+        return income - expenses
+
+    except mysql.connector.Error as error:
+        print("Error getting current amount from MySQL:", error)
+        return None
+
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+            print("MySQL connection is closed.")
+
+
