@@ -3,7 +3,6 @@ import pygame_gui
 import sys
 from pygame_gui.windows.ui_message_window import UIMessageWindow
 from GUI import GUI
-from pygame_gui.core import ObjectID
 from page_manager import PageManager
 import database_operation
 
@@ -19,20 +18,20 @@ def sortByCategory(retrieved_user):
         relative_rect=pygame.Rect((50, 200), (300, 280)),
         item_list=[],
         manager=gui.MANAGER,
-        object_id=ObjectID("selection_list")
+        object_id="selection_list"
     )
     categoryList = pygame_gui.elements.UIDropDownMenu(
         relative_rect=pygame.Rect((50, 150), (300, 30)),
         options_list=["GROCERIES", "RENT", "UTILITIES", "TRANSPORTATION", "HEALTHCARE", "ENTERTAINMENT", "SALARY", "HOBBIES", "TRAVEL", "RESTAURANTS", "OTHERS"],
         starting_option="GROCERIES",
         manager=gui.MANAGER,
-        object_id=ObjectID("day_list1")
+        object_id="day_list1"
     )
     confirmButton = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((150, 500), (100, 30)),
         text='CONFIRM',
         manager=gui.MANAGER,
-        object_id=ObjectID("confirm_button")
+        object_id="confirm_button"
     )
     closeButton = pygame_gui.elements.UIButton(
     relative_rect=pygame.Rect((150, 550), (100, 30)),
@@ -80,7 +79,7 @@ def sortByCategory(retrieved_user):
                         transactions = database_operation.get_transactions_by_category(retrieved_user[0], selected_category)
                         lastTransactionsList.remove_items(all_transactions)
                         lastTransactionsList.add_items(transactions)
-                        
+
                     if event.ui_element == closeButton:
                         PageManager.show_filter_page(retrieved_user)
 
