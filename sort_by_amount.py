@@ -2,7 +2,6 @@ import pygame
 import pygame_gui
 import sys
 from GUI import GUI
-from pygame_gui.core import ObjectID
 from page_manager import PageManager
 import database_operation
 
@@ -19,21 +18,21 @@ def sortByAmount(retrieved_user):
         relative_rect=pygame.Rect((50, 300), (300, 150)),
         item_list=[],
         manager=gui.MANAGER,
-        object_id=ObjectID("selection_list")
+        object_id="selection_list"
     )
     amountList = pygame_gui.elements.UIDropDownMenu(
         relative_rect=pygame.Rect((50, 150), (300, 50)),
         options_list=["ASCENDING", "DESCENDING"],
         starting_option="ASCENDING",
         manager=gui.MANAGER,
-        object_id=ObjectID("drop_down")
+        object_id="drop_down"
     )
     
     confirmButton = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((150, 500), (100, 30)),
         text='CONFIRM',
         manager=gui.MANAGER,
-        object_id=ObjectID("confirm_button")
+        object_id="confirm_button"
     )
     closeButton = pygame_gui.elements.UIButton(
     relative_rect=pygame.Rect((150, 550), (100, 30)),
