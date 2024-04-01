@@ -11,7 +11,7 @@ def monthlyTransactionList(retrieved_user):
     window = gui.createWindow("Monthly Transaction List")
     clock = pygame.time.Clock()
     uiRefreshRate = clock.tick(60) / 10000.0
-    gui.createImage(window, 50, 50, 100, 100, "images/logo.png")
+    logo =gui.createImage(window, 50, 50, 75, 50, "images/Logo.png")
 
     selectMonthLabel = pygame_gui.elements.UILabel(
         relative_rect=pygame.Rect((20, 120), (150, 30)),
@@ -134,7 +134,7 @@ def monthlyTransactionList(retrieved_user):
             
         window.fill(gui.BACKGROUND)
         gui.MANAGER.update(uiRefreshRate)
-        gui.createImage(window, 50, 50, 100, 100, "images/Logo.png")  
+        logo =gui.createImage(window, 50, 50, 75, 50, "images/Logo.png")  
         gui.MANAGER.draw_ui(window)   
         pygame.display.update()
 

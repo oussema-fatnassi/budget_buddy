@@ -2,8 +2,6 @@ import pygame
 import pygame_gui
 import sys
 from GUI import GUI
-# from account_creation import accountCreation
-# from connection_page import connectionPage
 from user import User
 from page_manager import PageManager
 
@@ -13,7 +11,7 @@ def homePage():
     window = gui.createWindow("Home Page")
     clock = pygame.time.Clock()
     uiRefreshRate = clock.tick(60) / 10000.0
-    gui.createImage(window, 200, 175, 300, 300, "images/logo.png")
+    gui.createImage(window, 200, 175, 300, 200, "images/logo.png")
 
     loginButton = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((150, 500), (100, 30)),
@@ -27,6 +25,12 @@ def homePage():
         manager=gui.MANAGER,
         object_id="create_account_button"
     )
+    welcomeMessage = pygame_gui.elements.UITextBox(
+        relative_rect=pygame.Rect((50, 350), (300, 100)),
+        html_text="<font face=arial size=4 color=black>Welcome to BUDGET BUDDY, your favorite money budgeting application</font>",
+        manager=gui.MANAGER,
+        object_id="welcome_message"
+    )
     
     while True:
         for event in pygame.event.get():
@@ -36,10 +40,8 @@ def homePage():
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == loginButton:
-                        print("Login button pressed")
                         PageManager.show_connection_page()
                     elif event.ui_element == createAccountButton:
-                        print("Create Account button pressed")
                         PageManager.show_account_creation_page()
                         PageManager.show_connection_page()
 

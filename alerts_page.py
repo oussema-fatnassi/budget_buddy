@@ -4,16 +4,16 @@ import sys
 from GUI import GUI
 from page_manager import PageManager
 
-def alerts():
+def alerts(retrieved_user):
     gui = GUI()
     window = gui.createWindow("Alerts Page")
     clock = pygame.time.Clock()
     uiRefreshRate = clock.tick(60) / 10000.0
-    logo = gui.createImage(window, 50, 50, 50, 50, "images/logo.png")
+    logo =gui.createImage(window, 50, 50, 75, 50, "images/Logo.png")
     label = gui.createLabel(window, 50, 150, 300, 50, "Select alert to view details")
 
     alertsList = pygame_gui.elements.UISelectionList(
-        relative_rect=pygame.Rect((50, 200), (300, 350)),
+        relative_rect=pygame.Rect((50, 200), (300, 200)),
         item_list=["Alert 1", "Alert 2", "Alert 3", "Alert 4", "Alert 5"],
         manager=gui.MANAGER,
         object_id="alerts_list"
@@ -41,11 +41,11 @@ def alerts():
                         gui.createMessageBox(window, 50, 50, 300, 300, selected_item)
                 if event.ui_element == closeButton:
                     if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                        PageManager.show_user_page()
+                        PageManager.show_user_page(retrieved_user)
 
         window.fill(gui.BACKGROUND)
         gui.MANAGER.update(gui.uiRefreshRate)
-        gui.createImage(window, 50, 50, 50, 50, "images/Logo.png")
+        logo =gui.createImage(window, 50, 50, 75, 50, "images/Logo.png")
         gui.MANAGER.draw_ui(window)
         pygame.display.update()
 

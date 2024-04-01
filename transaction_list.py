@@ -10,7 +10,7 @@ def transactionList(retrieved_user):
     window = gui.createWindow("Transaction List Page")
     clock = pygame.time.Clock()
     uiRefreshRate = clock.tick(60) / 10000.0
-    logo = gui.createImage(window, 50, 50, 50, 50, "images/logo.png")
+    gui.createImage(window, 50, 50, 75, 50, "images/Logo.png")
     label = gui.createLabel(window, 50, 150, 300, 50, "Double click on a transaction to view details")
 
     lastTransactionsList = pygame_gui.elements.UISelectionList(
@@ -64,7 +64,7 @@ def transactionList(retrieved_user):
 
         window.fill(gui.BACKGROUND)
         gui.MANAGER.update(gui.uiRefreshRate)
-        gui.createImage(window, 50, 50, 50, 50, "images/Logo.png")
+        gui.createImage(window, 50, 50, 75, 50, "images/Logo.png")
         gui.MANAGER.draw_ui(window)
         pygame.display.update()
 

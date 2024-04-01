@@ -10,7 +10,7 @@ def sortByType(retrieved_user):
     window = gui.createWindow("Sort By Type")
     clock = pygame.time.Clock()
     uiRefreshRate = clock.tick(60) / 10000.0
-    logo = gui.createImage(window, 50, 50, 50, 50, "images/logo.png")
+    logo =gui.createImage(window, 50, 50, 75, 50, "images/Logo.png")
     label = gui.createLabel(window, -50, 100, 300, 50, "Sort by type")
     labelTransactionList = gui.createLabel(window, -40, 200, 300, 50, "Transaction List")
 
@@ -84,7 +84,7 @@ def sortByType(retrieved_user):
 
         window.fill(gui.BACKGROUND)
         gui.MANAGER.update(gui.uiRefreshRate)
-        gui.createImage(window, 50, 50, 50, 50, "images/Logo.png")
+        logo =gui.createImage(window, 50, 50, 75, 50, "images/Logo.png")
         gui.MANAGER.draw_ui(window)
         pygame.display.update()
 

@@ -11,7 +11,7 @@ def sortByCategory(retrieved_user):
     window = gui.createWindow("Sort By Category Page")
     clock = pygame.time.Clock()
     uiRefreshRate = clock.tick(60) / 10000.0
-    logo = gui.createImage(window, 50, 50, 50, 50, "images/logo.png")
+    logo =gui.createImage(window, 50, 50, 75, 50, "images/Logo.png")
     label = gui.createLabel(window, 50, 100, 300, 50, "Select the category to filter by")
 
     lastTransactionsList = pygame_gui.elements.UISelectionList(
@@ -85,7 +85,7 @@ def sortByCategory(retrieved_user):
 
         window.fill(gui.BACKGROUND)
         gui.MANAGER.update(gui.uiRefreshRate)
-        gui.createImage(window, 50, 50, 50, 50, "images/Logo.png")
+        logo =gui.createImage(window, 50, 50, 75, 50, "images/Logo.png")
         gui.MANAGER.draw_ui(window)
         pygame.display.update()
 

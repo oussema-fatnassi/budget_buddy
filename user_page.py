@@ -11,7 +11,7 @@ def userPage(retrieved_user):
     window = gui.createWindow("User Page")
     clock = pygame.time.Clock()
     uiRefreshRate = clock.tick(60) / 10000.0
-    logo = gui.createImage(window, 50, 50, 50, 50, "images/logo.png")
+    logo = gui.createImage(window, 50, 50, 75, 50, "images/logo.png")
 
     logoutButton = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((325, 25), (58, 58)),
@@ -86,7 +86,6 @@ def userPage(retrieved_user):
         first_name = user_data[1]  # First name is at index 1
         last_name = user_data[2]  # Last name is at index 2
         textName = f"{first_name.capitalize()} {last_name.capitalize()}"
-        print(textName)
         userName.html_text = ""  # Clear existing text
         userName.append_html_text(textName)  # Set the text of the userName textbox
 
@@ -152,7 +151,7 @@ def userPage(retrieved_user):
 
         window.fill(gui.BACKGROUND)
         gui.MANAGER.update(gui.uiRefreshRate)
-        gui.createImage(window, 50, 50, 50, 50, "images/Logo.png")
+        gui.createImage(window, 50, 50, 75, 50, "images/Logo.png")
         gui.MANAGER.draw_ui(window)
         pygame.display.update()
 

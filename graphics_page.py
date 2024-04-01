@@ -12,7 +12,8 @@ def transactionGraphics(retrieved_user):
     window = gui.createWindow("Transaction Graphics")
     clock = pygame.time.Clock()
     uiRefreshRate = clock.tick(60) / 10000.0
-    gui.createImage(window, 50, 50, 50, 50, "images/logo.png")
+    logo =gui.createImage(window, 50, 50, 75, 50, "images/Logo.png")
+
 
     choseGraphmenu = pygame_gui.elements.UIDropDownMenu(
         relative_rect=pygame.Rect((20, 100), (150, 30)),
@@ -49,6 +50,12 @@ def transactionGraphics(retrieved_user):
         manager=gui.MANAGER,
         object_id="year_list1"
     )
+    graphsLabel = pygame_gui.elements.UILabel(
+        relative_rect=pygame.Rect((70, 50), (300, 30)),
+        text="Choose graph type and period",
+        manager=gui.MANAGER,
+        object_id="label"
+    )
 
     plot_surface = None
 
@@ -84,7 +91,8 @@ def transactionGraphics(retrieved_user):
 
         window.fill(gui.BACKGROUND)
         gui.MANAGER.update(uiRefreshRate)
-        gui.createImage(window, 50, 50, 50, 50, "images/Logo.png")  
+        logo =gui.createImage(window, 50, 50, 75, 50, "images/Logo.png")
+ 
         if plot_surface:  
             window.blit(plot_surface, (30, 180))  
         gui.MANAGER.draw_ui(window)   

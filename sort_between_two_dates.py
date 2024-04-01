@@ -11,7 +11,7 @@ def sortBetweenTwoDates(retrieved_user):
     window = gui.createWindow("Filter Transactions Between Two Dates")
     clock = pygame.time.Clock()
     uiRefreshRate = clock.tick(60) / 10000.0
-    logo = gui.createImage(window, 50, 50, 50, 50, "images/logo.png")
+    logo =gui.createImage(window, 50, 50, 75, 50, "images/Logo.png")
     titleLable = pygame_gui.elements.UILabel(
         relative_rect=pygame.Rect((50, 80), (300, 50)),
         text="Select two dates to filter by",
@@ -146,7 +146,7 @@ def sortBetweenTwoDates(retrieved_user):
 
         window.fill(gui.BACKGROUND)
         gui.MANAGER.update(gui.uiRefreshRate)
-        gui.createImage(window, 50, 50, 50, 50, "images/Logo.png")
+        logo =gui.createImage(window, 50, 50, 75, 50, "images/Logo.png")
         gui.MANAGER.draw_ui(window)
         pygame.display.update()
 

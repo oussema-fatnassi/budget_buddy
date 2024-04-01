@@ -9,7 +9,7 @@ def filterPage(retrieved_user):
     window = gui.createWindow("Filter Page")
     clock = pygame.time.Clock()
     uiRefreshRate = clock.tick(60) / 10000.0
-    logo = gui.createImage(window, 50, 50, 50, 50, "images/logo.png")
+    logo =gui.createImage(window, 50, 50, 75, 50, "images/Logo.png")
     label = gui.createLabel(window, 50, 150, 300, 50, "Select how to filter transactions:")
     dateButton = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((50, 200), (300, 50)),
@@ -74,7 +74,7 @@ def filterPage(retrieved_user):
 
         window.fill(gui.BACKGROUND)
         gui.MANAGER.update(gui.uiRefreshRate)
-        gui.createImage(window, 50, 50, 50, 50, "images/Logo.png")
+        logo =gui.createImage(window, 50, 50, 75, 50, "images/Logo.png")
         gui.MANAGER.draw_ui(window)
         pygame.display.update()
 

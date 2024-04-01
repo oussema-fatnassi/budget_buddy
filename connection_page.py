@@ -12,7 +12,7 @@ def connectionPage():
     window = gui.createWindow("Connection Page")
     clock = pygame.time.Clock()
     uiRefreshRate = clock.tick(60) / 10000.0
-    gui.createImage(window, 200, 100, 100, 100, "images/logo.png")
+    gui.createImage(window, 200, 150, 300, 200, "images/logo.png")
     user = User()
 
     emailLabel = pygame_gui.elements.UILabel(
@@ -73,11 +73,15 @@ def connectionPage():
                         password = user.hashPassword(passwordInput.get_text())  # Retrieve password entered by the user
                         user.login(email, password)  # Pass email and password to the login method
                         if database_operation.verify_user(email, password):
-                            print("Login successful.")
                             user_retrieved = database_operation.get_user_data(email)
                             PageManager.show_user_page(user_retrieved)
                         else:
-                            print("Login failed.")
+                            pygame_gui.windows.UIMessageWindow(
+                                rect=pygame.Rect((50, 50), (300, 300)),
+                                manager=gui.MANAGER,
+                                html_message="Login failed. Please try again.",
+                                object_id="message_box"
+                            )
                     elif event.ui_element == registerButton:
                         PageManager.show_account_creation_page()
                     elif event.ui_element == showPasswordButton:
@@ -90,14 +94,11 @@ def connectionPage():
                             passwordInput.set_text_hidden(True)
                             showPassword = False
                         showPasswordButton.pressed = False
-                if event.user_type == pygame_gui.UI_TEXT_ENTRY_FINISHED:
-                    if event.ui_element == emailInput:
-                        print("Email entered: ", emailInput.get_text())
-                    elif event.ui_element == passwordInput:
-                        print("Password entered: ", passwordInput.get_text())
 
             gui.MANAGER.process_events(event)
+        window.fill(gui.BACKGROUND)
         gui.MANAGER.update(uiRefreshRate)
+        gui.createImage(window, 200, 150, 300, 200, "images/logo.png")
         gui.MANAGER.draw_ui(window)
         pygame.display.update()
 

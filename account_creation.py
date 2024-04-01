@@ -12,7 +12,7 @@ def accountCreation():
     window = gui.createWindow("Account Creation")
     clock = pygame.time.Clock()
     uiRefreshRate = clock.tick(60) / 10000.0
-    gui.createImage(window, 350, 50, 100, 100, "images/logo.png")
+    logo =gui.createImage(window, 50, 50, 75, 50, "images/Logo.png")
     firstNameLabel = pygame_gui.elements.UILabel(
         relative_rect=pygame.Rect((10, 100), (100, 30)),
         text="First Name",
@@ -154,7 +154,7 @@ def accountCreation():
 
         window.fill(gui.BACKGROUND)  
         gui.MANAGER.update(uiRefreshRate)
-        gui.createImage(window, 350, 50, 100, 100, "images/logo.png")
+        logo =gui.createImage(window, 50, 50, 75, 50, "images/Logo.png")
         gui.MANAGER.draw_ui(window)
         pygame.display.update()
     print("While loop exited.")

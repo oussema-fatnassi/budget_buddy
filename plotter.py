@@ -20,7 +20,7 @@ class Plotter:
     @staticmethod
     def plot_category_summary(selected_month, selected_year, categories, amounts):
         plt.figure(figsize=(3.3, 3))
-        plt.bar(categories, amounts, color="#4CAF50")
+        plt.bar(categories, amounts, color="#C7C8CC")
         plt.xlabel('Category')
         plt.ylabel('Amount')
         plt.title(f'Category-wise Transactions for {selected_month}/{selected_year}')
