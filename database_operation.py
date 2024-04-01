@@ -459,28 +459,38 @@ def get_monthly_transactions(user_id, selected_month, selected_year):
         )
         cursor = connection.cursor()
 
-
         # Define the SQL query to retrieve transactions for the selected month/year
-        sql = "SELECT name FROM transaction WHERE user_id = %s AND MONTH(date) = %s AND YEAR(date) = %s"
+        sql = "SELECT name, amount, type FROM transaction WHERE user_id = %s AND MONTH(date) = %s AND YEAR(date) = %s"
         cursor.execute(sql, (user_id, int(selected_month), int(selected_year)))
         
-        # Fetch all the transaction names
+        # Fetch all the transactions
         result = cursor.fetchall()
 
-        # Extract transaction names from the result and return them as strings
-        transaction_names = [row[0] for row in result if row[0]]
+        # Extract transaction names, calculate total income and expenses
+        transaction_names = []
+        total_income = 0
+        total_expenses = 0
+        for row in result:
+            transaction_names.append(row[0])
+            if row[2] == 'Income':
+                total_income += row[1]
+            else:
+                total_expenses += row[1]
         
-        return transaction_names
+        return transaction_names, total_income, total_expenses
 
     except mysql.connector.Error as error:
         print("Error retrieving monthly transactions:", error)
-        return []
+        return [], 0, 0
 
     finally:
         if connection.is_connected():
             cursor.close()
             connection.close()
             print("MySQL connection is closed.")
+
+
+
 
 
 
