@@ -4,6 +4,7 @@ import sys
 from GUI import GUI
 from user import User
 from page_manager import PageManager
+import database_operation 
 
 def userPage(retrieved_user):
     gui = GUI()
@@ -56,7 +57,7 @@ def userPage(retrieved_user):
     )
     lastTransactionsList = pygame_gui.elements.UISelectionList(
         relative_rect=pygame.Rect((50, 300), (300, 200)),
-        item_list=["Transaction 1", "Transaction 2", "Transaction 3", "Transaction 4", "Transaction 5"],
+        item_list=[],
         manager=gui.MANAGER,
         object_id="selection_list",
         allow_double_clicks=True
@@ -74,6 +75,13 @@ def userPage(retrieved_user):
     user.setId(retrieved_user[0])
     user.setFirstName(retrieved_user[1])
     user.setLastName(retrieved_user[2])
+
+    last_transactions = database_operation.get_last_transactions(retrieved_user[0])
+    lastTransactionsList.add_items(last_transactions)
+    print("Last transactions:" ,last_transactions)
+    gui.MANAGER.update(gui.uiRefreshRate)
+    gui.MANAGER.draw_ui(window)
+
 
     while True:
         for event in pygame.event.get():
