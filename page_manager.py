@@ -1,14 +1,14 @@
 
 class PageManager:
     @staticmethod
-    def show_add_transaction_page(user=None):
+    def show_add_transaction_page(user, user_retrieved):
         from add_transaction import addTransaction
-        addTransaction(user)
+        addTransaction(user, user_retrieved)
 
     @staticmethod
-    def show_user_page():
+    def show_user_page(user_retrieved):
         from user_page import userPage
-        userPage()
+        userPage(user_retrieved)
 
     @staticmethod
     def show_connection_page():
