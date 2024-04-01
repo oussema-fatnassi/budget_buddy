@@ -4,7 +4,7 @@ import sys
 from GUI import GUI
 from page_manager import PageManager
 
-def filterPage():
+def filterPage(retrieved_user):
     gui = GUI()
     window = gui.createWindow("Filter Page")
     clock = pygame.time.Clock()
@@ -60,17 +60,17 @@ def filterPage():
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == dateButton:
-                        print("Sort By Date")
+                        PageManager.show_sort_by_date_page(retrieved_user)
                     elif event.ui_element == categoryButton:
-                        print("Sort By Category")
+                        PageManager.show_sort_by_category_page(retrieved_user)
                     elif event.ui_element == typeButton:
-                        print("Sort By Type")
+                        PageManager.show_sort_by_type_page(retrieved_user)
                     elif event.ui_element == amountButton:
-                        print("Sort By Amount")
+                        PageManager.show_sort_by_amount_page(retrieved_user)
                     elif event.ui_element == betweenTwoDatesButton:
-                        print("Sort Between Two Dates")
+                        PageManager.show_sort_between_two_dates_page(retrieved_user)
                     elif event.ui_element == closeButton:
-                        PageManager.show_user_page()
+                        PageManager.show_user_page(retrieved_user)
 
         window.fill(gui.BACKGROUND)
         gui.MANAGER.update(gui.uiRefreshRate)
