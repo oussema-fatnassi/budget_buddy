@@ -127,14 +127,11 @@ def accountCreation():
                             confirmPasswordTextInput.set_text_hidden(True)
                             showPassword = False
                     if event.ui_element == loginButton:
-                        print("Login Button Pressed")
-                        exit = True                             # Go to the page login
+                        exit = True                            
                         PageManager.show_connection_page()
                     elif event.ui_element == registerButton:
-                        print("Register Button Pressed")
                         hashPassword = user.hashPassword(passwordTextInput.get_text())
                         if user.register(firstNameInput.get_text(), lastNameInput.get_text(), emailTextInput.get_text(), passwordTextInput.get_text(), confirmPasswordTextInput.get_text()) == True:
-                            print("Registration successful v2")
                             create_tables()                                                                                             # Create the users table if it doesn't exist            
                             insert_user_data(firstNameInput.get_text(), lastNameInput.get_text(), emailTextInput.get_text(), hashPassword)  # Insert user data into the database
                             firstNameInput.set_text("")
@@ -142,8 +139,17 @@ def accountCreation():
                             emailTextInput.set_text("")
                             passwordTextInput.set_text("")
                             confirmPasswordTextInput.set_text("")
-                            exit = True                         # Go to the page login
+                            exit = True                         
                             PageManager.show_connection_page()
+                        else:
+                            error_message = "<b>Registration failed. Please make sure all fields are filled and passwords meet the criteria. Password must be:\n- At least 10 characters long\n- Contain at least one uppercase letter\n- Contain at least one lowercase letter\n- Contain at least one digit\n- Contain at least one special character<b>"
+                            pygame_gui.windows.UIMessageWindow(
+                                rect=pygame.Rect((50, 100), (300, 350)),
+                                html_message= error_message,
+                                window_title='Registration Error',
+                                object_id="message_box",
+                                manager=gui.MANAGER
+                            )
             gui.MANAGER.process_events(event)
 
         window.fill(gui.BACKGROUND)  

@@ -53,7 +53,7 @@ class User:
             print("All fields are required.")
             pygame_gui.windows.UIMessageWindow(
                 rect=pygame.Rect((50, 100), (300, 100)),
-                html_message="All fields are required.",
+                html_message="All fields are required."
                 )
             return
         elif self.checkPassword(password) == False:
