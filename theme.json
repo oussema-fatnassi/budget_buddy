@@ -202,8 +202,7 @@
             "dark_bg": "#EEEEEE"
         },
         "misc": {
-            "border_width": "2",
-            "shape": "rounded_rectangle",
+            "border_width": "0",
             "shape_corner_radius": "10"
         }
     },
