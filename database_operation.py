@@ -489,6 +489,38 @@ def get_monthly_transactions(user_id, selected_month, selected_year):
             connection.close()
             print("MySQL connection is closed.")
 
+def get_transactions_by_category_period(user_id, selected_month, selected_year):
+    try:
+        connection = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="O*9GU9A9",
+            database="budget_buddy"
+        )
+        cursor = connection.cursor()
+        sql = "SELECT category, SUM(amount) FROM transaction WHERE user_id = %s AND MONTH(date) = %s AND YEAR(date) = %s GROUP BY category"
+        cursor.execute(sql, (user_id, selected_month, selected_year))
+        result = cursor.fetchall()
+        
+        categories = []
+        amounts = []
+        for row in result:
+            categories.append(row[0])
+            amounts.append(row[1])
+                
+        return categories, amounts
+
+    except mysql.connector.Error as error:
+        print("Error retrieving transactions by category:", error)
+        return [], []
+
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+            print("MySQL connection is closed.")
+
+
 
 
 
