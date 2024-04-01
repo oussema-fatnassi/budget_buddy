@@ -56,36 +56,49 @@ def userPage(retrieved_user):
         object_id="graphics_button"
     )
     lastTransactionsList = pygame_gui.elements.UISelectionList(
-        relative_rect=pygame.Rect((50, 300), (300, 200)),
+        relative_rect=pygame.Rect((50, 300), (300, 150)),
         item_list=[],
         manager=gui.MANAGER,
         object_id="selection_list",
         allow_double_clicks=True
     )
     currentAmount = pygame_gui.elements.UITextBox(
-        relative_rect=pygame.Rect((100, 80), (200, 100)),
+        relative_rect=pygame.Rect((100, 100), (200, 80)),
         html_text="",
         manager=gui.MANAGER,
         object_id="current_amount_text_box"
+    )
+    userName = pygame_gui.elements.UITextBox(
+        relative_rect=pygame.Rect((100, 30), (200, 50)),
+        html_text="",
+        manager=gui.MANAGER,
+        object_id="user_name_text_box"
     )
 
     current_amount = database_operation.get_current_amount(retrieved_user[0])
     if current_amount is not None:
         current_amount_text = f"<b>Current Amount:</b> € {current_amount:.2f}"
-        currentAmount.clear_all_active_effects()  # Clear any active effects first
         currentAmount.html_text = ""  # Clear existing text
         currentAmount.append_html_text(current_amount_text)  # Append new text
 
+    user_data = database_operation.get_user_name(retrieved_user[3])  # Assuming the email is stored at index 3
+    if user_data:
+        first_name = user_data[1]  # First name is at index 1
+        last_name = user_data[2]  # Last name is at index 2
+        textName = f"{first_name.capitalize()} {last_name.capitalize()}"
+        print(textName)
+        userName.html_text = ""  # Clear existing text
+        userName.append_html_text(textName)  # Set the text of the userName textbox
+
     user = User()
-    # print("Retrieved user" + retrieved_user)
     user.setEmail(retrieved_user[3])                                        # Set the user's email
     user.setId(retrieved_user[0])
     user.setFirstName(retrieved_user[1])
     user.setLastName(retrieved_user[2])
 
+
     last_transactions = database_operation.get_last_transactions(retrieved_user[0])
     lastTransactionsList.add_items(last_transactions)
-    print("Last transactions:" ,last_transactions)
     gui.MANAGER.update(gui.uiRefreshRate)
     gui.MANAGER.draw_ui(window)
 
@@ -103,7 +116,6 @@ def userPage(retrieved_user):
                     if event.ui_element == lastTransactionsList:
                         selected_item = event.text
                         transaction_details = database_operation.get_transaction_details(selected_item, retrieved_user[0])
-                        print("Transaction details:", transaction_details)
                         if transaction_details:
                             details_text = f"<b>Name:</b> {transaction_details['name']}<br>" \
                                f"<b>Description:</b> {transaction_details['description']}<br>" \
@@ -126,15 +138,15 @@ def userPage(retrieved_user):
                     if event.ui_element == addTransactionButton:
                         PageManager.show_add_transaction_page(user, retrieved_user)
                     if event.ui_element == transactionListButton:
-                        PageManager.show_transaction_list_page()
+                        PageManager.show_transaction_list_page(retrieved_user)
                     if event.ui_element == filterButton:
-                        PageManager.show_filter_page()
+                        PageManager.show_filter_page(retrieved_user)
                     if event.ui_element == monthlyRecapButton:
-                        PageManager.show_monthly_recap_page()
+                        PageManager.show_monthly_recap_page(retrieved_user)
                     if event.ui_element == alertsButton:
-                        PageManager.show_alerts_page()
+                        PageManager.show_alerts_page(retrieved_user)
                     if event.ui_element == graphicsButton:
-                        PageManager.show_graphics_page()
+                        PageManager.show_graphics_page(retrieved_user)
 
             # Get the current amount from the database
 
