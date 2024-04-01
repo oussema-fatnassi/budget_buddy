@@ -5,6 +5,7 @@ from GUI import GUI
 from user import User
 import database_operation
 from user_page import userPage
+from page_manager import PageManager
 
 def connectionPage():
     gui = GUI()
@@ -74,11 +75,11 @@ def connectionPage():
                         if database_operation.verify_user(email, password):
                             print("Login successful.")
                             user_retrieved = database_operation.get_user_data(email)
-                            userPage(user_retrieved)
+                            PageManager.show_user_page(user_retrieved)
                         else:
                             print("Login failed.")
                     elif event.ui_element == registerButton:
-                        pass
+                        PageManager.show_account_creation_page()
                     elif event.ui_element == showPasswordButton:
                         if not showPassword:
                             # Show password
