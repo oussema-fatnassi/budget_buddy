@@ -95,11 +95,20 @@ def userPage(retrieved_user):
                 if event.user_type == pygame_gui.UI_SELECTION_LIST_DOUBLE_CLICKED_SELECTION:
                     if event.ui_element == lastTransactionsList:
                         selected_item = event.text
+                        transaction_details = database_operation.get_transaction_details(selected_item, retrieved_user[0])
+                        print("Transaction details:", transaction_details)
+                        if transaction_details:
+                            details_text = f"<b>Name:</b> {transaction_details['name']}<br>" \
+                               f"<b>Description:</b> {transaction_details['description']}<br>" \
+                               f"<b>Amount: € </b> {transaction_details['amount']}<br>" \
+                               f"<b>Category:</b> {transaction_details['category']}<br>" \
+                               f"<b>Type:</b> {transaction_details['type']}<br>" \
+                               f"<b>Date:</b> {transaction_details['date']}"
                         pygame_gui.windows.UIMessageWindow(
                             rect=pygame.Rect((50, 50), (300, 300)),
-                            html_message= selected_item,
+                            html_message= details_text,
                             manager=gui.MANAGER,
-                            window_title='Message Box',
+                            window_title='Transaction Details',
                             object_id="message_box"
                         )
 
