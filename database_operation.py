@@ -382,3 +382,39 @@ def get_transactions_by_type(user_id, selected_type):
             connection.close()
             print("MySQL connection is closed.")
 
+def get_transactions_by_amount_asc(user_id, selected_sort_order):
+    try:
+        connection = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="O*9GU9A9",
+            database="budget_buddy"
+        )
+        cursor = connection.cursor()
+        
+        if selected_sort_order.upper() == "ASCENDING":
+            sql = "SELECT name FROM transaction WHERE user_id = %s ORDER BY amount ASC"
+        elif selected_sort_order.upper() == "DESCENDING":
+            sql = "SELECT name FROM transaction WHERE user_id = %s ORDER BY amount DESC"
+            
+        cursor.execute(sql, (user_id,))
+        
+        # Fetch all the transaction names
+        result = cursor.fetchall()
+        
+        # Extract transaction names from the result and return them as a list of strings
+        transaction_names = [row[0] for row in result if row[0]]
+        
+        return transaction_names
+
+    except mysql.connector.Error as error:
+        print("Error retrieving transactions by amount:", error)
+        return []
+
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+            print("MySQL connection is closed.")
+
+
