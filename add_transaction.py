@@ -107,7 +107,8 @@ def addTransaction(user, user_retrieved):
                     transactioDetails = pygame_gui.windows.UIMessageWindow(
                         rect=pygame.Rect((50, 50), (300, 300)),
                         manager=gui.MANAGER,
-                        html_message=f"Name: {transaction.name}<br>Description: {transaction.description}<br>Amount: {transaction.amount}<br>Category: {transaction.category}<br>Type: {transaction.type}<br>Date: {transaction.date}"
+                        html_message=f"Name: {transaction.name}<br>Description: {transaction.description}<br>Amount: {transaction.amount}<br>Category: {transaction.category}<br>Type: {transaction.type}<br>Date: {transaction.date}",
+                        object_id="message_box"
                     )
                     # Insert transaction into the database
                     insert_transaction_data(user.id, transaction)
