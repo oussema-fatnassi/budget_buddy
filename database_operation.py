@@ -170,3 +170,29 @@ def insert_transaction_data(user_id, transaction):
             connection.close()
             print("MySQL connection is closed.")
 
+def get_last_transactions(user_id, limit=5):
+    try:
+        connection = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="O*9GU9A9",
+            database="budget_buddy"
+        )
+        cursor = connection.cursor()
+
+        sql = "SELECT name FROM transaction WHERE user_id = %s ORDER BY date DESC LIMIT %s"
+        cursor.execute(sql, (user_id, limit))
+
+        result = cursor.fetchall()
+        return [row[0] for row in result]  # Extracting just the transaction names
+
+    except mysql.connector.Error as error:
+        print("Error getting last transactions from MySQL:", error)
+        return []
+
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+            print("MySQL connection is closed.")
+
