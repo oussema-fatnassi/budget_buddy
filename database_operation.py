@@ -196,3 +196,45 @@ def get_last_transactions(user_id, limit=5):
             connection.close()
             print("MySQL connection is closed.")
 
+def get_transaction_details(transaction_name, user_id):
+    try:
+        connection = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="O*9GU9A9",
+            database="budget_buddy"
+        )
+        cursor = connection.cursor()
+
+        # Define the SQL query to retrieve details of the transaction using its name and user ID
+        sql = "SELECT * FROM transaction WHERE name = %s AND user_id = %s"
+        cursor.execute(sql, (transaction_name, user_id))
+        
+        # Fetch the result (assuming you have a single transaction with the same name for the user)
+        transaction_details = cursor.fetchone()
+        
+        # If transaction_details is not None, return it
+        if transaction_details:
+            details_dict = {
+                'name': transaction_details[2],
+                'description': transaction_details[3],
+                'amount': transaction_details[4],
+                'category': transaction_details[5],
+                'type': transaction_details[6],
+                'date': transaction_details[7]
+            }
+            return details_dict
+        else:
+            # If no transaction found with the given name, return None
+            return None
+
+    except mysql.connector.Error as error:
+        print("Error retrieving transaction details:", error)
+        return None
+
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+            print("MySQL connection is closed.")
+
