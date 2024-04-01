@@ -8,7 +8,7 @@ from transaction import Transaction
 from user import User
 from page_manager import PageManager
 
-def addTransaction(user):
+def addTransaction(user, user_retrieved):
     gui = GUI()
     window = gui.createWindow("Add Transaction")
     clock = pygame.time.Clock()
@@ -120,7 +120,7 @@ def addTransaction(user):
                     # Provide feedback to the user
                     print("Transaction added successfully!")
                 if event.ui_element == closeButton:
-                    PageManager.show_user_page()
+                    PageManager.show_user_page(user_retrieved)
 
         window.fill(gui.BACKGROUND)
         gui.MANAGER.update(uiRefreshRate)
@@ -128,7 +128,8 @@ def addTransaction(user):
         gui.MANAGER.draw_ui(window)   
         pygame.display.update()
 
-if __name__ == "__main__":
-    create_tables()
-    user = User()
-    addTransaction(user)
+# if __name__ == "__main__":
+#     create_tables()
+#     user = User()
+#     user_retrieved = None
+#     addTransaction(user, user_retrieved)
