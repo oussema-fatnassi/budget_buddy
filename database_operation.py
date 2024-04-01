@@ -140,6 +140,32 @@ def get_user_data(email):                                                       
             connection.close()
             print("MySQL connection is closed.")
 
+def get_user_name(email):                                                              
+    try:
+        connection = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="O*9GU9A9",
+            database="budget_buddy"
+        )
+        cursor = connection.cursor()
+
+        sql = "SELECT id, first_name, last_name FROM users WHERE email = %s "  # Include first_name and last_name in the query
+        cursor.execute(sql, (email,))                                                   
+        result = cursor.fetchone()
+        return result  # Return id, first_name, and last_name
+
+    except mysql.connector.Error as error:
+        print("Error getting user data from MySQL:", error)
+        return None
+
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+            print("MySQL connection is closed.")
+
+
 def insert_transaction_data(user_id, transaction):
     try:
         connection = mysql.connector.connect(
