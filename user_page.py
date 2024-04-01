@@ -69,6 +69,13 @@ def userPage(retrieved_user):
         object_id="current_amount_text_box"
     )
 
+    current_amount = database_operation.get_current_amount(retrieved_user[0])
+    if current_amount is not None:
+        current_amount_text = f"<b>Current Amount:</b> € {current_amount:.2f}"
+        currentAmount.clear_all_active_effects()  # Clear any active effects first
+        currentAmount.html_text = ""  # Clear existing text
+        currentAmount.append_html_text(current_amount_text)  # Append new text
+
     user = User()
     # print("Retrieved user" + retrieved_user)
     user.setEmail(retrieved_user[3])                                        # Set the user's email
@@ -128,6 +135,8 @@ def userPage(retrieved_user):
                         PageManager.show_alerts_page()
                     if event.ui_element == graphicsButton:
                         PageManager.show_graphics_page()
+
+            # Get the current amount from the database
 
         window.fill(gui.BACKGROUND)
         gui.MANAGER.update(gui.uiRefreshRate)
