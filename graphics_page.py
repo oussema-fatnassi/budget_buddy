@@ -16,7 +16,7 @@ def transactionGraphics(retrieved_user):
 
     choseGraphmenu = pygame_gui.elements.UIDropDownMenu(
         relative_rect=pygame.Rect((20, 100), (150, 30)),
-        options_list=["Monthly recap", "By category", "By amount"],
+        options_list=["Monthly recap", "By category"],
         starting_option="Monthly recap",
         manager=gui.MANAGER,
         object_id="drop_down"
@@ -81,9 +81,6 @@ def transactionGraphics(retrieved_user):
                                 amounts = []
                             Plotter.plot_category_summary(selected_month, selected_year, categories, amounts)
                             plot_surface = pygame.image.load('category_plot.png')
-
-
-
 
         window.fill(gui.BACKGROUND)
         gui.MANAGER.update(uiRefreshRate)
