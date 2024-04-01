@@ -331,3 +331,35 @@ def get_transactions_by_date(user_id, selected_date):
             cursor.close()
             connection.close()
             print("MySQL connection is closed.")
+
+def get_transactions_by_category(user_id, selected_category):
+    try:
+        connection = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="O*9GU9A9",
+            database="budget_buddy"
+        )
+        cursor = connection.cursor()
+
+        # Define the SQL query to retrieve transactions for the selected category
+        sql = "SELECT name FROM transaction WHERE user_id = %s AND category = %s"
+        cursor.execute(sql, (user_id, selected_category))
+        
+        # Fetch all the transaction names
+        result = cursor.fetchall()
+
+        # Extract transaction names from the result and return them as strings
+        transaction_names = [row[0] for row in result if row[0]]
+        
+        return transaction_names
+
+    except mysql.connector.Error as error:
+        print("Error retrieving transactions by category:", error)
+        return []
+
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+            print("MySQL connection is closed.")
