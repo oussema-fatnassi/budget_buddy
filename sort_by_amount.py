@@ -16,7 +16,7 @@ def sortByAmount(retrieved_user):
     labelTransactionList = gui.createLabel(window, -40, 200, 300, 50, "Transaction List")
 
     lastTransactionsList = pygame_gui.elements.UISelectionList(
-        relative_rect=pygame.Rect((50, 250), (300, 150)),
+        relative_rect=pygame.Rect((50, 300), (300, 150)),
         item_list=[],
         manager=gui.MANAGER,
         object_id=ObjectID("selection_list")
