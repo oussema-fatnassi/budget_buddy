@@ -2,7 +2,6 @@ import pygame
 import pygame_gui
 import sys
 from GUI import GUI
-from pygame_gui.core import ObjectID
 from page_manager import PageManager
 import database_operation
 import datetime
@@ -36,55 +35,55 @@ def sortBetweenTwoDates(retrieved_user):
         relative_rect=pygame.Rect((50, 300), (300, 150)),
         item_list=[],
         manager=gui.MANAGER,
-        object_id=ObjectID("selection_list")
+        object_id="selection_list"
     )
     dayList1 = pygame_gui.elements.UIDropDownMenu(
         relative_rect=pygame.Rect((50, 175), (70, 30)),
         options_list=["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"],
         starting_option="1",
         manager=gui.MANAGER,
-        object_id=ObjectID("day_list1")
+        object_id="day_list1"
     )
     monthList1 = pygame_gui.elements.UIDropDownMenu(
         relative_rect=pygame.Rect((125, 175), (120, 30)),
         options_list=["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
         starting_option="January",
         manager=gui.MANAGER,
-        object_id=ObjectID("month_list1")
+        object_id="month_list1"
     )
     yearList1 = pygame_gui.elements.UIDropDownMenu(
         relative_rect=pygame.Rect((250, 175), (90, 30)),
         options_list=["2024","2023","2022","2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"],
         starting_option="2024",
         manager=gui.MANAGER,
-        object_id=ObjectID("year_list1")
+        object_id="year_list1"
     )
     dayList2 = pygame_gui.elements.UIDropDownMenu(
         relative_rect=pygame.Rect((50, 250), (70, 30)),
         options_list=["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"],
         starting_option="1",
         manager=gui.MANAGER,
-        object_id=ObjectID("day_list2")
+        object_id="day_list2"
     )
     monthList2 = pygame_gui.elements.UIDropDownMenu(
         relative_rect=pygame.Rect((125, 250), (120, 30)),
         options_list=["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
         starting_option="January",
         manager=gui.MANAGER,
-        object_id=ObjectID("month_list2")
+        object_id="month_list2"
     )
     yearList2 = pygame_gui.elements.UIDropDownMenu(
         relative_rect=pygame.Rect((250, 250), (90, 30)),
         options_list=["2024","2023","2022","2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"],
         starting_option="2024",
         manager=gui.MANAGER,
-        object_id=ObjectID("year_list2")
+        object_id="year_list2"
     )
     confirmButton = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((150, 500), (100, 30)),
         text='CONFIRM',
         manager=gui.MANAGER,
-        object_id=ObjectID("confirm_button")
+        object_id="confirm_button"
     )
     closeButton = pygame_gui.elements.UIButton(
     relative_rect=pygame.Rect((150, 550), (100, 30)),
