@@ -90,28 +90,15 @@ def sortByDate(retrieved_user):
 
                 elif event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == confirmButton:
-                        # Get selected date from dropdowns
                         day = int(dayList1.selected_option)
                         month = monthList1.selected_option
                         year = int(yearList1.selected_option)
-                        
-                        # Convert month name to number
-                        month_number = datetime.datetime.strptime(month, "%B").month
-                        
-                        # Format the selected date
-                        selected_date = datetime.date(year, month_number, day)
+                        month_number = datetime.datetime.strptime(month, "%B").month                                        # Convert month name to number                 
+                        selected_date = datetime.date(year, month_number, day)                                              # Format the selected date   
+                        transactions = database_operation.get_transactions_by_date(retrieved_user[0], selected_date)        # Get transactions for the selected date
+                        lastTransactionsList.remove_items(all_transactions)                                                 # Remove all transactions from the list
+                        lastTransactionsList.add_items(transactions)                                                        # Add the transactions for the selected date to the list 
 
-                        # Get transactions for the selected date
-                        transactions = database_operation.get_transactions_by_date(retrieved_user[0], selected_date)
-
-                        # Clear the list
-                        lastTransactionsList.remove_items(all_transactions)
-
-                        # Add transactions to the list
-                        lastTransactionsList.add_items(transactions)
-
-                    elif event.ui_element == closeButton:
-                        PageManager.show_filter_page(retrieved_user)
                     if event.ui_element == closeButton:
                         PageManager.show_filter_page(retrieved_user)
 

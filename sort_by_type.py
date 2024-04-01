@@ -4,6 +4,7 @@ import sys
 from GUI import GUI
 from pygame_gui.core import ObjectID
 from page_manager import PageManager
+import database_operation
 
 def sortByType(retrieved_user):
     gui = GUI()
@@ -16,14 +17,14 @@ def sortByType(retrieved_user):
 
     lastTransactionsList = pygame_gui.elements.UISelectionList(
         relative_rect=pygame.Rect((50, 250), (300, 150)),
-        item_list=["Transaction 1", "Transaction 2", "Transaction 3", "Transaction 4", "Transaction 5"],
+        item_list=[],
         manager=gui.MANAGER,
         object_id=ObjectID("selection_list")
     )
-    selectionDropDown = pygame_gui.elements.UIDropDownMenu(
+    typeList = pygame_gui.elements.UIDropDownMenu(
         relative_rect=pygame.Rect((50, 150), (300, 50)),
-        options_list=["Resources", "Expenses"],
-        starting_option="Resources",
+        options_list=["Income", "Expense"],
+        starting_option="Income",
         manager=gui.MANAGER,
         object_id=ObjectID("drop_down")
     )
@@ -41,6 +42,10 @@ def sortByType(retrieved_user):
     object_id="close_button"
     )
 
+    all_transactions = database_operation.get_all_transactions(retrieved_user[0])
+    lastTransactionsList.add_items(all_transactions)
+
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -52,18 +57,30 @@ def sortByType(retrieved_user):
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_SELECTION_LIST_DOUBLE_CLICKED_SELECTION:
                     if event.ui_element == lastTransactionsList:
-                        selected_item = event.text
+                        selected_item = event.text 
+                        transaction_details = database_operation.get_transaction_details(selected_item, retrieved_user[0])
+                        details_text = ""
+                        if transaction_details:
+                            details_text = f"<b>Name:</b> {transaction_details['name']}<br>" \
+                               f"<b>Description:</b> {transaction_details['description']}<br>" \
+                               f"<b>Amount: € </b> {transaction_details['amount']}<br>" \
+                               f"<b>Category:</b> {transaction_details['category']}<br>" \
+                               f"<b>Type:</b> {transaction_details['type']}<br>" \
+                               f"<b>Date:</b> {transaction_details['date']}"
                         pygame_gui.windows.UIMessageWindow(
                             rect=pygame.Rect((50, 50), (300, 300)),
-                            html_message= selected_item,
+                            html_message= details_text,
                             manager=gui.MANAGER,
-                            window_title='Message Box',
+                            window_title='Transaction Details',
                             object_id="message_box"
                         )
 
                 elif event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == confirmButton:
-                        pass
+                        selected_type = typeList.selected_option.upper()
+                        transactions = database_operation.get_transactions_by_type(retrieved_user[0], selected_type)
+                        lastTransactionsList.remove_items(all_transactions)
+                        lastTransactionsList.add_items(transactions)
                     if event.ui_element == closeButton:
                         PageManager.show_filter_page(retrieved_user)
 
