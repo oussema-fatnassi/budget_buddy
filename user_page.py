@@ -63,7 +63,7 @@ def userPage(retrieved_user):
     )
     currentAmount = pygame_gui.elements.UITextBox(
         relative_rect=pygame.Rect((100, 80), (200, 100)),
-        html_text="10000 €",
+        html_text="",
         manager=gui.MANAGER,
         object_id="current_amount_text_box"
     )
@@ -100,7 +100,7 @@ def userPage(retrieved_user):
                         user.logout()
                         PageManager.show_home_page()
                     if event.ui_element == addTransactionButton:
-                        PageManager.show_add_transaction_page(user)
+                        PageManager.show_add_transaction_page(user, retrieved_user)
                     if event.ui_element == transactionListButton:
                         PageManager.show_transaction_list_page()
                     if event.ui_element == filterButton:
@@ -118,5 +118,5 @@ def userPage(retrieved_user):
         gui.MANAGER.draw_ui(window)
         pygame.display.update()
 
-if __name__ == "__main__":
-    userPage()
+# if __name__ == "__main__":
+#     userPage()
