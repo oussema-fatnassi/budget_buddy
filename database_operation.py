@@ -210,7 +210,6 @@ def get_transaction_details(transaction_name, user_id):                         
         sql = "SELECT * FROM transaction WHERE name = %s AND user_id = %s"
         cursor.execute(sql, (transaction_name, user_id))
         
-        # Fetch the result (assuming you have a single transaction with the same name for the user)
         transaction_details = cursor.fetchone()
         
         # If transaction_details is not None, return it
@@ -225,7 +224,6 @@ def get_transaction_details(transaction_name, user_id):                         
             }
             return details_dict
         else:
-            # If no transaction found with the given name, return None
             return None
 
     except mysql.connector.Error as error:
@@ -294,6 +292,38 @@ def get_all_transactions(user_id):
 
     except mysql.connector.Error as error:
         print("Error retrieving transactions:", error)
+        return []
+
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+            print("MySQL connection is closed.")
+
+def get_transactions_by_date(user_id, selected_date):
+    try:
+        connection = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="O*9GU9A9",
+            database="budget_buddy"
+        )
+        cursor = connection.cursor()
+
+        # Define the SQL query to retrieve transactions for the selected date
+        sql = "SELECT name FROM transaction WHERE user_id = %s AND DATE(date) = %s"
+        cursor.execute(sql, (user_id, selected_date))
+        
+        # Fetch all the transaction names
+        result = cursor.fetchall()
+
+        # Extract transaction names from the result and return them as strings
+        transaction_names = [row[0] for row in result if row[0]]
+        
+        return transaction_names
+
+    except mysql.connector.Error as error:
+        print("Error retrieving transactions by date:", error)
         return []
 
     finally:
