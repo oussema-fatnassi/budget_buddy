@@ -26,26 +26,51 @@ class PageManager:
         accountCreation()
 
     @staticmethod
-    def show_transaction_list_page():
+    def show_transaction_list_page(user_retrieved):
         from transaction_list import transactionList
-        transactionList()
+        transactionList(user_retrieved)
 
     @staticmethod
-    def show_filter_page():
+    def show_filter_page(user_retrieved):
         from filter_page import filterPage
-        filterPage()
+        filterPage(user_retrieved)
 
     @staticmethod
-    def show_monthly_recap_page():
+    def show_monthly_recap_page(user_retrieved):
         from monthly_recap_page import monthlyTransactionList
-        monthlyTransactionList()
+        monthlyTransactionList(user_retrieved)
 
     @staticmethod
-    def show_alerts_page():
+    def show_alerts_page(user_retrieved):
         from alerts_page import alerts
-        alerts()
+        alerts(user_retrieved)
 
     @staticmethod
-    def show_graphics_page():
+    def show_graphics_page(user_retrieved):
         from graphics_page import transactionGraphics
-        transactionGraphics()
+        transactionGraphics(user_retrieved)
+
+    @staticmethod
+    def show_sort_by_date_page(user_retrieved):
+        from sort_by_date import sortByDate
+        sortByDate(user_retrieved)
+
+    @staticmethod
+    def show_sort_by_amount_page(user_retrieved):
+        from sort_by_amount import sortByAmount
+        sortByAmount(user_retrieved)
+
+    @staticmethod
+    def show_sort_by_category_page(user_retrieved):
+        from sort_by_category import sortByCategory
+        sortByCategory(user_retrieved)
+
+    @staticmethod
+    def show_sort_by_type_page(user_retrieved):
+        from sort_by_type import sortByType
+        sortByType(user_retrieved)
+
+    @staticmethod
+    def show_sort_between_two_dates_page(user_retrieved):
+        from sort_between_two_dates import sortBetweenTwoDates
+        sortBetweenTwoDates(user_retrieved)
