@@ -170,7 +170,7 @@ def insert_transaction_data(user_id, transaction):
             connection.close()
             print("MySQL connection is closed.")
 
-def get_last_transactions(user_id, limit=5):
+def get_last_transactions(user_id, limit=5):                                                    # get_last_transactions method to retrieve the last transactions of the user
     try:
         connection = mysql.connector.connect(
             host="localhost",
@@ -196,7 +196,7 @@ def get_last_transactions(user_id, limit=5):
             connection.close()
             print("MySQL connection is closed.")
 
-def get_transaction_details(transaction_name, user_id):
+def get_transaction_details(transaction_name, user_id):                                         # get_transaction_details method to retrieve transaction details from the database
     try:
         connection = mysql.connector.connect(
             host="localhost",
@@ -270,4 +270,34 @@ def get_current_amount(user_id):
             connection.close()
             print("MySQL connection is closed.")
 
+def get_all_transactions(user_id):
+    try:
+        connection = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="O*9GU9A9",
+            database="budget_buddy"
+        )
+        cursor = connection.cursor()
 
+        # Define the SQL query to retrieve all transaction names of the user
+        sql = "SELECT name FROM transaction WHERE user_id = %s"
+        cursor.execute(sql, (user_id,))
+        
+        # Fetch all the transaction names
+        result = cursor.fetchall()
+
+        # Extract transaction names from the result and return them as strings
+        transaction_names = [row[0] for row in result if row[0]]
+        
+        return transaction_names
+
+    except mysql.connector.Error as error:
+        print("Error retrieving transactions:", error)
+        return []
+
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+            print("MySQL connection is closed.")
