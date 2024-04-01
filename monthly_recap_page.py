@@ -3,37 +3,58 @@ import pygame_gui
 import sys
 from GUI import GUI
 from page_manager import PageManager
+import database_operation
+import datetime
 
-def monthlyTransactionList():
+def monthlyTransactionList(retrieved_user):
     gui = GUI()
     window = gui.createWindow("Monthly Transaction List")
     clock = pygame.time.Clock()
     uiRefreshRate = clock.tick(60) / 10000.0
     gui.createImage(window, 50, 50, 100, 100, "images/logo.png")
-    gui.createLabel(window, 20, 120, 150, 30, "Select a month :")
+
+    selectMonthLabel = pygame_gui.elements.UILabel(
+        relative_rect=pygame.Rect((20, 120), (150, 30)),
+        text="Select a month :",
+        manager=gui.MANAGER,
+        object_id="label"
+    )
     monthList = pygame_gui.elements.UIDropDownMenu(
         relative_rect=pygame.Rect((200, 120), (100, 30)),
         options_list=["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
         starting_option="January",
         manager=gui.MANAGER,)
-    gui.createLabel(window, 20, 160, 150, 30, "Select a year :")
+    selectYearLabel = pygame_gui.elements.UILabel(
+        relative_rect=pygame.Rect((20, 160), (150, 30)),
+        text="Select a year :",
+        manager=gui.MANAGER,
+        object_id="label"
+    )
     yearList = pygame_gui.elements.UIDropDownMenu(
         relative_rect=pygame.Rect((200, 160), (100, 30)),
         options_list=["2024","2023","2022","2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"],
         starting_option="2024",
         manager=gui.MANAGER,)
-    gui.createButton(window, 150, 200, 100, 30, "GET LIST")
-    TransactionsList = pygame_gui.elements.UISelectionList(
+    lastTransactionsList = pygame_gui.elements.UISelectionList(
         relative_rect=pygame.Rect((50, 300), (300, 150)),
-        item_list=["Transaction 1", "Transaction 2", "Transaction 3", "Transaction 4", "Transaction 5"],
+        item_list=[],
         manager=gui.MANAGER,)
     
-    closeButton = pygame_gui.elements.UIButton(
-        relative_rect=pygame.Rect((150, 550), (100, 30)),
-        text="CLOSE",
+    confirmButton = pygame_gui.elements.UIButton(
+        relative_rect=pygame.Rect((150, 500), (100, 30)),
+        text='CONFIRM',
         manager=gui.MANAGER,
-        object_id="close_button"
+        object_id="confirm_button"
     )
+    closeButton = pygame_gui.elements.UIButton(
+    relative_rect=pygame.Rect((150, 550), (100, 30)),
+    text="CLOSE",
+    manager=gui.MANAGER,
+    object_id="close_button"
+    )
+
+    all_transactions = database_operation.get_all_transactions(retrieved_user[0])
+    lastTransactionsList.add_items(all_transactions)
     
     while True:
         for event in pygame.event.get():
@@ -41,9 +62,38 @@ def monthlyTransactionList():
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.USEREVENT:
+                
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == closeButton:
-                        PageManager.show_user_page()
+                        PageManager.show_user_page(retrieved_user)
+                    elif event.ui_element == confirmButton:
+                        selected_month = monthList.selected_option
+                        selected_year = int(yearList.selected_option)
+                        month_number = datetime.datetime.strptime(selected_month, "%B").month                                        # Convert month name to number                 
+                        selected_month_year = datetime.date(selected_year, month_number,1)                                              # Format the selected date   
+
+                        transactions = database_operation.get_monthly_transactions(retrieved_user[0], month_number, selected_year)  # Get transactions for the selected month
+                        lastTransactionsList.remove_items(all_transactions)
+                        lastTransactionsList.add_items(transactions)
+                        
+                elif event.user_type == pygame_gui.UI_SELECTION_LIST_DOUBLE_CLICKED_SELECTION:
+                    if event.ui_element == lastTransactionsList:
+                        selected_item = event.text
+                        transaction_details = database_operation.get_transaction_details(selected_item, retrieved_user[0])
+                        if transaction_details:
+                            details_text = f"<b>Name:</b> {transaction_details['name']}<br>" \
+                               f"<b>Description:</b> {transaction_details['description']}<br>" \
+                               f"<b>Amount: € </b> {transaction_details['amount']}<br>" \
+                               f"<b>Category:</b> {transaction_details['category']}<br>" \
+                               f"<b>Type:</b> {transaction_details['type']}<br>" \
+                               f"<b>Date:</b> {transaction_details['date']}"
+                        pygame_gui.windows.UIMessageWindow(
+                            rect=pygame.Rect((50, 50), (300, 300)),
+                            html_message= details_text,
+                            manager=gui.MANAGER,
+                            window_title='Transaction Details',
+                            object_id="message_box"
+                        )
             gui.MANAGER.process_events(event)
             
         window.fill(gui.BACKGROUND)
