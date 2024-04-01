@@ -132,7 +132,7 @@ def get_user_data(email):                                                       
 
     except mysql.connector.Error as error:
         print("Error getting user in MySQL:", error)
-        return False
+        return None
 
     finally:
         if connection.is_connected():
