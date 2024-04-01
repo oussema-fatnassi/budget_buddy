@@ -14,7 +14,7 @@ def transactionList(retrieved_user):
     label = gui.createLabel(window, 50, 150, 300, 50, "Double click on a transaction to view details")
 
     lastTransactionsList = pygame_gui.elements.UISelectionList(
-        relative_rect=pygame.Rect((50, 200), (300, 350)),
+        relative_rect=pygame.Rect((50, 200), (300, 250)),
         item_list=[],
         manager=gui.MANAGER,
         object_id="selection_list",
@@ -28,7 +28,6 @@ def transactionList(retrieved_user):
     )
 
     all_transactions = database_operation.get_all_transactions(retrieved_user[0])
-    print(all_transactions)
     lastTransactionsList.add_items(all_transactions)
 
 
@@ -45,7 +44,6 @@ def transactionList(retrieved_user):
                     if event.ui_element == lastTransactionsList:
                         selected_item = event.text
                         transaction_details = database_operation.get_transaction_details(selected_item, retrieved_user[0])
-                        print("Transaction details:", transaction_details)
                         if transaction_details:
                             details_text = f"<b>Name:</b> {transaction_details['name']}<br>" \
                                f"<b>Description:</b> {transaction_details['description']}<br>" \
