@@ -83,13 +83,15 @@ def sortBetweenTwoDates(retrieved_user):
         relative_rect=pygame.Rect((150, 500), (100, 30)),
         text='CONFIRM',
         manager=gui.MANAGER,
-        object_id="confirm_button"
+        object_id="confirm_button",
+        tool_tip_text="Display transactions for the selected date"
     )
     closeButton = pygame_gui.elements.UIButton(
     relative_rect=pygame.Rect((150, 550), (100, 30)),
     text="CLOSE",
     manager=gui.MANAGER,
-    object_id="close_button"
+    object_id="close_button",
+    tool_tip_text="Return to filter page"
     )
 
     all_transactions = database_operation.get_all_transactions(retrieved_user[0])

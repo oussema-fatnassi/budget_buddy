@@ -22,7 +22,8 @@ def alerts(retrieved_user):
         relative_rect=pygame.Rect((150, 550), (100, 30)),
         text="CLOSE",
         manager=gui.MANAGER,
-        object_id="close_button"
+        object_id="close_button",
+        tool_tip_text="Return to the user page"
     )
 
     while True:

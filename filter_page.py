@@ -15,37 +15,43 @@ def filterPage(retrieved_user):
         relative_rect=pygame.Rect((50, 200), (300, 50)),
         text="Sort By Date",
         manager=gui.MANAGER,
-        object_id="filters_button"
+        object_id="filters_button",
+        tool_tip_text="Sort transactions by date"
     )
     categoryButton = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((50, 260), (300, 50)),
         text="Sort By Category",
         manager=gui.MANAGER,
-        object_id="filters_button"
+        object_id="filters_button",
+        tool_tip_text="Sort transactions by category"
     )
     typeButton = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((50, 320), (300, 50)),
         text="Sort By Type",
         manager=gui.MANAGER,
-        object_id="filters_button"
+        object_id="filters_button",
+        tool_tip_text="Sort transactions by type"
     )
     amountButton = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((50, 380), (300, 50)),
         text="Sort By Amount",
         manager=gui.MANAGER,
-        object_id="filters_button"
+        object_id="filters_button",
+        tool_tip_text="Sort transactions by amount"
     )
     betweenTwoDatesButton = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((50, 440), (300, 50)),
         text="Sort Between Two Dates",
         manager=gui.MANAGER,
-        object_id="filters_button"
+        object_id="filters_button",
+        tool_tip_text="Sort transactions between two dates"
     )
     closeButton = pygame_gui.elements.UIButton(
     relative_rect=pygame.Rect((150, 550), (100, 30)),
     text="CLOSE",
     manager=gui.MANAGER,
-    object_id="close_button"
+    object_id="close_button",
+    tool_tip_text="Return to the user page"
     )
 
 

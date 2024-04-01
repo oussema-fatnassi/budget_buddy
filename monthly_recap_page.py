@@ -44,13 +44,15 @@ def monthlyTransactionList(retrieved_user):
         relative_rect=pygame.Rect((150, 500), (100, 30)),
         text='CONFIRM',
         manager=gui.MANAGER,
-        object_id="confirm_button"
+        object_id="confirm_button",
+        tool_tip_text="Display transactions for the selected month"
     )
     closeButton = pygame_gui.elements.UIButton(
     relative_rect=pygame.Rect((150, 550), (100, 30)),
     text="CLOSE",
     manager=gui.MANAGER,
-    object_id="close_button"
+    object_id="close_button",
+    tool_tip_text="Return to the user page"
     )
 
     monthlyIncome = pygame_gui.elements.UITextBox(

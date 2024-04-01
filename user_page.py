@@ -17,43 +17,50 @@ def userPage(retrieved_user):
         relative_rect=pygame.Rect((325, 25), (58, 58)),
         text="",
         manager=gui.MANAGER,
-        object_id="logout_button"
+        object_id="logout_button",
+        tool_tip_text="Logout"
     )
     addTransactionButton = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((50, 200), (58, 58)),
         text="",
         manager=gui.MANAGER,
-        object_id="add_transaction_button"
+        object_id="add_transaction_button",
+        tool_tip_text="Add a new transaction"
     )
     transactionListButton = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((175, 200), (58, 58)),
         text="",
         manager=gui.MANAGER,
-        object_id="transaction_list_button"
+        object_id="transaction_list_button",
+        tool_tip_text="View all transactions"
     )
     filterButton = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((300, 200), (58, 58)),
         text="",
         manager=gui.MANAGER,
-        object_id="filter_button"
+        object_id="filter_button",
+        tool_tip_text="Filter transactions"
     )
     monthlyRecapButton = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((50, 500), (58, 58)),
         text="",
         manager=gui.MANAGER,
-        object_id="monthly_recap_button"
+        object_id="monthly_recap_button",
+        tool_tip_text="View monthly recap"
     )
     alertsButton = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((175, 500), (58, 58)),
         text="",
         manager=gui.MANAGER,
-        object_id="alerts_button"
+        object_id="alerts_button",
+        tool_tip_text="View alerts"
     )
     graphicsButton = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((300, 500), (58, 58)),
         text="",
         manager=gui.MANAGER,
-        object_id="graphics_button"
+        object_id="graphics_button",
+        tool_tip_text="View graphics"
     )
     lastTransactionsList = pygame_gui.elements.UISelectionList(
         relative_rect=pygame.Rect((50, 300), (300, 150)),

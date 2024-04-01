@@ -70,7 +70,8 @@ def accountCreation():
     relative_rect=pygame.Rect((330, 345), (33, 22)),
     text="",
     manager=gui.MANAGER,
-    object_id="show_password_button"
+    object_id="show_password_button",
+    tool_tip_text="Show password"
     )
     confirmPasswordTextInput = pygame_gui.elements.UITextEntryLine(
         relative_rect=pygame.Rect((20, 410), (300, 40)),
@@ -83,20 +84,23 @@ def accountCreation():
     relative_rect=pygame.Rect((330, 415), (33, 22)),
     text="",
     manager=gui.MANAGER,
-    object_id="show_password_button"
+    object_id="show_password_button",
+    tool_tip_text="Show password"
     )
 
     loginButton = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((150, 500), (100, 30)),
         text="LOGIN",
         manager=gui.MANAGER,
-        object_id="login_button"
+        object_id="login_button",
+        tool_tip_text="Return to the connection page"
     )
     registerButton = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((150, 550), (100, 30)),
         text="REGISTER",
         manager=gui.MANAGER,
-        object_id="register_button"
+        object_id="register_button",
+        tool_tip_text="Register the user"
     )
     exit = False
     showPassword = False

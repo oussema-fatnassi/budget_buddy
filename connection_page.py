@@ -44,20 +44,23 @@ def connectionPage():
         relative_rect=pygame.Rect((350, 400), (33, 22)),
         text="",
         manager=gui.MANAGER,
-        object_id="show_password_button"
+        object_id="show_password_button",
+        tool_tip_text="Show password"
     )
 
     loginButton = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((150, 500), (100, 30)),
         text="LOGIN",
         manager=gui.MANAGER,
-        object_id="login_button"
+        object_id="login_button",
+        tool_tip_text="Login to your account"
     )
     registerButton = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((150, 550), (100, 30)),
         text="REGISTER",
         manager=gui.MANAGER,
-        object_id="register_button"
+        object_id="register_button",
+        tool_tip_text="Create a new account"
     )
 
     showPassword = False

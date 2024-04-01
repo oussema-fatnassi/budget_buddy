@@ -18,12 +18,14 @@ def homePage():
         text="LOGIN",
         manager=gui.MANAGER,
         object_id="login_button_hp",
+        tool_tip_text="Login to your account"
     )
     createAccountButton = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((100, 550), (200, 30)),
         text="CREATE NEW ACCOUNT",
         manager=gui.MANAGER,
-        object_id="create_account_button"
+        object_id="create_account_button",
+        tool_tip_text="Create a new account"
     )
     welcomeMessage = pygame_gui.elements.UITextBox(
         relative_rect=pygame.Rect((50, 350), (300, 100)),
@@ -46,7 +48,9 @@ def homePage():
                         PageManager.show_connection_page()
 
             gui.MANAGER.process_events(event)
+        window.fill(gui.BACKGROUND)
         gui.MANAGER.update(uiRefreshRate)
+        gui.createImage(window, 200, 175, 300, 200, "images/logo.png")
         gui.MANAGER.draw_ui(window)
         pygame.display.update()
 
