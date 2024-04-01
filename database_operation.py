@@ -417,4 +417,71 @@ def get_transactions_by_amount_asc(user_id, selected_sort_order):
             connection.close()
             print("MySQL connection is closed.")
 
+def get_transactions_between_dates(user_id, start_date, end_date):
+    try:
+        connection = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="O*9GU9A9",
+            database="budget_buddy"
+        )
+        cursor = connection.cursor()
+
+        # Define the SQL query to retrieve transactions between two dates
+        sql = "SELECT name FROM transaction WHERE user_id = %s AND date BETWEEN %s AND %s"
+        cursor.execute(sql, (user_id, start_date, end_date))
+        
+        # Fetch all the transaction names
+        result = cursor.fetchall()
+
+        # Extract transaction names from the result and return them as strings
+        transaction_names = [row[0] for row in result if row[0]]
+        
+        return transaction_names
+
+    except mysql.connector.Error as error:
+        print("Error retrieving transactions between dates:", error)
+        return []
+
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+            print("MySQL connection is closed.")
+
+def get_monthly_transactions(user_id, selected_month, selected_year):
+    try:
+        connection = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="O*9GU9A9",
+            database="budget_buddy"
+        )
+        cursor = connection.cursor()
+
+
+        # Define the SQL query to retrieve transactions for the selected month/year
+        sql = "SELECT name FROM transaction WHERE user_id = %s AND MONTH(date) = %s AND YEAR(date) = %s"
+        cursor.execute(sql, (user_id, int(selected_month), int(selected_year)))
+        
+        # Fetch all the transaction names
+        result = cursor.fetchall()
+
+        # Extract transaction names from the result and return them as strings
+        transaction_names = [row[0] for row in result if row[0]]
+        
+        return transaction_names
+
+    except mysql.connector.Error as error:
+        print("Error retrieving monthly transactions:", error)
+        return []
+
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+            print("MySQL connection is closed.")
+
+
+
 
