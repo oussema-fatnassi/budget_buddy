@@ -115,7 +115,7 @@ def addTransaction(user, user_retrieved):
                             window_title='Overdraft Alert',
                             object_id="alert_box"
                         )
-                        database_operation.insert_alert(user.id,"Overdraft", alert_message)
+                        database_operation.insert_alert(user.id,"Overdraft", alert_message)                                     # Insert alert data into the database for overdraft
                     else:
                         transaction = Transaction(name, description, amount, category, transaction_type, date)                  # Create Transaction object
                         transactioDetails = pygame_gui.windows.UIMessageWindow(                                                 # Display transaction details
@@ -124,9 +124,9 @@ def addTransaction(user, user_retrieved):
                             html_message=f"Name: {transaction.name}<br>Description: {transaction.description}<br>Amount: {transaction.amount}<br>Category: {transaction.category}<br>Type: {transaction.type}<br>Date: {transaction.date}",
                             object_id="message_box"
                         )
-                        database_operation.insert_transaction_data(user.id, transaction)                                                           # Insert transaction data into the database              
+                        database_operation.insert_transaction_data(user.id, transaction)                                        # Insert transaction data into the database              
                     
-                    nameInput.set_text('')                                                                                  # Clear the input fields
+                    nameInput.set_text('')                                                                                      # Clear the input fields
                     descriptionInput.set_text('')
                     amountInput.set_text('')
                 if event.ui_element == closeButton:

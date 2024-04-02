@@ -7,7 +7,7 @@ from page_manager import PageManager
 from plotter import Plotter
 import datetime  
 
-def transactionGraphics(retrieved_user):
+def transactionGraphics(retrieved_user):                                                                                            # Show the graphics page where the user can choose the type of graph to display
     gui = GUI()
     window = gui.createWindow("Transaction Graphics")
     clock = pygame.time.Clock()
@@ -73,19 +73,19 @@ def transactionGraphics(retrieved_user):
                     if event.ui_element == closeButton:
                         PageManager.show_user_page(retrieved_user)
                     if event.ui_element == confirmButton:
-                        if choseGraphmenu.selected_option == "Monthly recap":
+                        if choseGraphmenu.selected_option == "Monthly recap":                                                           # If the user chose to display the monthly recap
                             selected_month = monthList1.selected_option
-                            month_number = datetime.datetime.strptime(selected_month, "%B").month
-                            selected_year = int(yearList1.selected_option)  # Get the selected year
+                            month_number = datetime.datetime.strptime(selected_month, "%B").month                                       # Get the month number
+                            selected_year = int(yearList1.selected_option)  
                             transaction_names, total_income, total_expenses = database_operation.get_monthly_transactions(retrieved_user[0], month_number, selected_year)
-                            Plotter.plot_monthly_summary(selected_month, selected_year, total_income, total_expenses)
+                            Plotter.plot_monthly_summary(selected_month, selected_year, total_income, total_expenses)                   # Plot the monthly summary
                             plot_surface = pygame.image.load('plot.png')
-                        elif choseGraphmenu.selected_option == "By category":
+                        elif choseGraphmenu.selected_option == "By category":                                                           # If the user chose to display the transactions by category
                             selected_month = monthList1.selected_option
                             month_number = datetime.datetime.strptime(selected_month, "%B").month
-                            selected_year = int(yearList1.selected_option)  # Get the selected year
+                            selected_year = int(yearList1.selected_option)  
                             categories, amounts = database_operation.get_transactions_by_category_period(retrieved_user[0], month_number, selected_year)
-                            if not categories:  # Check if no transactions found
+                            if not categories:                                                                                          # Check if no transactions found
                                 categories = []
                                 amounts = []
                             Plotter.plot_category_summary(selected_month, selected_year, categories, amounts)
@@ -96,7 +96,7 @@ def transactionGraphics(retrieved_user):
         logo =gui.createImage(window, 50, 50, 75, 50, "images/Logo.png")
  
         if plot_surface:  
-            window.blit(plot_surface, (30, 180))  
+            window.blit(plot_surface, (30, 180))                                                                                        # Display the plot                 
         gui.MANAGER.draw_ui(window)   
         pygame.display.update()
 

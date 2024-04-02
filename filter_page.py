@@ -4,7 +4,7 @@ import sys
 from GUI import GUI
 from page_manager import PageManager
 
-def filterPage(retrieved_user):
+def filterPage(retrieved_user):                                                                     # Shows the filter page: the user can choose how to filter the transactions
     gui = GUI()
     window = gui.createWindow("Filter Page")
     clock = pygame.time.Clock()

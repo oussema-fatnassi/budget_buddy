@@ -6,7 +6,7 @@ from GUI import GUI
 from page_manager import PageManager
 import database_operation
 
-def sortByCategory(retrieved_user):
+def sortByCategory(retrieved_user):                                                                      # Function to display transactions sorted by category               
     gui = GUI()
     window = gui.createWindow("Sort By Category Page")
     clock = pygame.time.Clock()
@@ -76,7 +76,7 @@ def sortByCategory(retrieved_user):
                         )
 
                 elif event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == confirmButton:
+                    if event.ui_element == confirmButton:                                               # If confirm button is pressed get the transactions for the selected category
                         selected_category = categoryList.selected_option.upper()
                         transactions = database_operation.get_transactions_by_category(retrieved_user[0], selected_category)
                         lastTransactionsList.remove_items(all_transactions)

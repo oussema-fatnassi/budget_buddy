@@ -5,7 +5,7 @@ from GUI import GUI
 from page_manager import PageManager
 import database_operation
 
-def sortByAmount(retrieved_user):
+def sortByAmount(retrieved_user):                                                   # Function to sort transactions by amount
     gui = GUI()
     window = gui.createWindow("Sort By Amount")
     clock = pygame.time.Clock()
@@ -76,7 +76,7 @@ def sortByAmount(retrieved_user):
                         )
 
                 elif event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == confirmButton:
+                    if event.ui_element == confirmButton:                           # If confirm button is pressed get the transactions for the selected category
                         selected_sort_order = amountList.selected_option.upper()
                         sorted_transactions = database_operation.get_transactions_by_amount_asc(retrieved_user[0], selected_sort_order)
                         lastTransactionsList.remove_items(all_transactions)

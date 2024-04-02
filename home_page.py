@@ -5,7 +5,7 @@ from GUI import GUI
 from user import User
 from page_manager import PageManager
 
-def homePage():
+def homePage():                                                                                 # Shows the home page of the application where the user can login or create a new account
     
     gui = GUI()
     window = gui.createWindow("Home Page")

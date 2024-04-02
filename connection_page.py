@@ -4,7 +4,6 @@ import sys
 from GUI import GUI
 from user import User
 import database_operation
-from user_page import userPage
 from page_manager import PageManager
 
 def connectionPage():

@@ -5,7 +5,7 @@ from GUI import GUI
 from page_manager import PageManager
 import database_operation
 
-def transactionList(retrieved_user):
+def transactionList(retrieved_user):                                                            # Function to display the transaction list page
     gui = GUI()
     window = gui.createWindow("Transaction List Page")
     clock = pygame.time.Clock()
@@ -28,7 +28,7 @@ def transactionList(retrieved_user):
     tool_tip_text="Return to the user page"
     )
 
-    all_transactions = database_operation.get_all_transactions(retrieved_user[0])
+    all_transactions = database_operation.get_all_transactions(retrieved_user[0])               # Get all transactions from the database
     lastTransactionsList.add_items(all_transactions)
 
 
@@ -41,7 +41,7 @@ def transactionList(retrieved_user):
             gui.MANAGER.process_events(event)
 
             if event.type == pygame.USEREVENT:
-                if event.user_type == pygame_gui.UI_SELECTION_LIST_DOUBLE_CLICKED_SELECTION:
+                if event.user_type == pygame_gui.UI_SELECTION_LIST_DOUBLE_CLICKED_SELECTION:    # If the user double clicks on a transaction show the details of the transaction
                     if event.ui_element == lastTransactionsList:
                         selected_item = event.text
                         transaction_details = database_operation.get_transaction_details(selected_item, retrieved_user[0])

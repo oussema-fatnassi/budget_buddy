@@ -6,7 +6,7 @@ from user import User
 from page_manager import PageManager
 import database_operation 
 
-def userPage(retrieved_user):
+def userPage(retrieved_user):                                                               # Show the user page when the user is connected and can access the different functionalities
     gui = GUI()
     window = gui.createWindow("User Page")
     clock = pygame.time.Clock()
@@ -82,28 +82,28 @@ def userPage(retrieved_user):
         object_id="user_name_text_box"
     )
 
-    current_amount = database_operation.get_current_amount(retrieved_user[0])
+    current_amount = database_operation.get_current_amount(retrieved_user[0])               # Get the current amount from the database
     if current_amount is not None:
         current_amount_text = f"<b>Current Amount:</b> € {current_amount:.2f}"
-        currentAmount.html_text = ""  # Clear existing text
-        currentAmount.append_html_text(current_amount_text)  # Append new text
+        currentAmount.html_text = "" 
+        currentAmount.append_html_text(current_amount_text)                                 # Append new text
 
-    user_data = database_operation.get_user_name(retrieved_user[3])  # Assuming the email is stored at index 3
+    user_data = database_operation.get_user_name(retrieved_user[3])                         # Get the user's first and last name
     if user_data:
-        first_name = user_data[1]  # First name is at index 1
-        last_name = user_data[2]  # Last name is at index 2
-        textName = f"{first_name.capitalize()} {last_name.capitalize()}"
-        userName.html_text = ""  # Clear existing text
-        userName.append_html_text(textName)  # Set the text of the userName textbox
+        first_name = user_data[1]  
+        last_name = user_data[2]  
+        textName = f"{first_name.capitalize()} {last_name.capitalize()}"                    # Capitalize the first and last name
+        userName.html_text = ""  
+        userName.append_html_text(textName)                                                 # Set the text of the userName textbox
 
-    user = User()
-    user.setEmail(retrieved_user[3])                                        # Set the user's email
-    user.setId(retrieved_user[0])
-    user.setFirstName(retrieved_user[1])
-    user.setLastName(retrieved_user[2])
+    user = User()                                                                           # Create a new user object
+    user.setEmail(retrieved_user[3])                                                        # Set the user's email address to the retrieved email address
+    user.setId(retrieved_user[0])                                                           # Set the user's id to the retrieved id
+    user.setFirstName(retrieved_user[1])                                                    # Set the user's first name to the retrieved first name
+    user.setLastName(retrieved_user[2])                                                     # Set the user's last name to the retrieved last name
 
 
-    last_transactions = database_operation.get_last_transactions(retrieved_user[0])
+    last_transactions = database_operation.get_last_transactions(retrieved_user[0])         # Get the last transactions from the database
     lastTransactionsList.add_items(last_transactions)
     gui.MANAGER.update(gui.uiRefreshRate)
     gui.MANAGER.draw_ui(window)
@@ -118,7 +118,7 @@ def userPage(retrieved_user):
             gui.MANAGER.process_events(event)
 
             if event.type == pygame.USEREVENT:
-                if event.user_type == pygame_gui.UI_SELECTION_LIST_DOUBLE_CLICKED_SELECTION:
+                if event.user_type == pygame_gui.UI_SELECTION_LIST_DOUBLE_CLICKED_SELECTION:    # If the user double clicks on a transaction show the details of the transaction
                     if event.ui_element == lastTransactionsList:
                         selected_item = event.text
                         transaction_details = database_operation.get_transaction_details(selected_item, retrieved_user[0])
@@ -153,8 +153,6 @@ def userPage(retrieved_user):
                         PageManager.show_alerts_page(retrieved_user)
                     if event.ui_element == graphicsButton:
                         PageManager.show_graphics_page(retrieved_user)
-
-            # Get the current amount from the database
 
         window.fill(gui.BACKGROUND)
         gui.MANAGER.update(gui.uiRefreshRate)

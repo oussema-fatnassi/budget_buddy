@@ -6,7 +6,7 @@ from page_manager import PageManager
 import database_operation
 import datetime
 
-def sortByDate(retrieved_user):
+def sortByDate(retrieved_user):                                                                 # Function to filter transactions by date
     gui = GUI()
     window = gui.createWindow("Filter Transactions By Date")
     clock = pygame.time.Clock()
@@ -58,7 +58,7 @@ def sortByDate(retrieved_user):
     tool_tip_text="Return to filter page"
     )
 
-    all_transactions = database_operation.get_all_transactions(retrieved_user[0])
+    all_transactions = database_operation.get_all_transactions(retrieved_user[0])               # Get all transactions for the user
     lastTransactionsList.add_items(all_transactions)
 
     while True:
@@ -70,7 +70,7 @@ def sortByDate(retrieved_user):
             gui.MANAGER.process_events(event)
 
             if event.type == pygame.USEREVENT:
-                if event.user_type == pygame_gui.UI_SELECTION_LIST_DOUBLE_CLICKED_SELECTION:
+                if event.user_type == pygame_gui.UI_SELECTION_LIST_DOUBLE_CLICKED_SELECTION:    # If a transaction is double clicked show all the details of the transaction
                     if event.ui_element == lastTransactionsList:
                         selected_item = event.text
                         transaction_details = database_operation.get_transaction_details(selected_item, retrieved_user[0])
@@ -91,7 +91,7 @@ def sortByDate(retrieved_user):
                         )
 
                 elif event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == confirmButton:
+                    if event.ui_element == confirmButton:                                       # If the confirm button is pressed get the transactions for the selected date
                         day = int(dayList1.selected_option)
                         month = monthList1.selected_option
                         year = int(yearList1.selected_option)

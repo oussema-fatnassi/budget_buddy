@@ -17,7 +17,8 @@ def alerts(retrieved_user):
         relative_rect=pygame.Rect((50, 200), (300, 200)),
         item_list=[],
         manager=gui.MANAGER,
-        object_id="alerts_list"
+        object_id="alerts_list",
+        allow_double_clicks=False
     )
     closeButton = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((150, 550), (100, 30)),
@@ -27,15 +28,9 @@ def alerts(retrieved_user):
         tool_tip_text="Return to the user page"
     )
 
-    alerts_data = database_operation.get_alerts_for_user(retrieved_user[0])
+    alerts_data = database_operation.get_alerts_for_user(retrieved_user[0])                                                         # Get alerts for the user
     alert_types = [alert[1] for alert in alerts_data]
-    alertsList.set_item_list(alert_types)
-
-# Print the extracted alert types
-    print(alert_types)
-    # for alert_type in types:
-    #     alertsList.add_items(alert_type)
-    
+    alertsList.set_item_list(alert_types)                                                                                           # Set the alert types in the list
 
     while True:
         for event in pygame.event.get():

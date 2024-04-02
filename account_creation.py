@@ -112,12 +112,10 @@ def accountCreation():
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == showPasswordButton:
-                        if not showPassword:
-                            # Show password
+                        if not showPassword:                                                                        # If the password is hidden show it
                             passwordTextInput.set_text_hidden(False)
                             showPassword = True
-                        else:
-                            # Hide password
+                        else:                                                                                       # If the password is shown hide it
                             passwordTextInput.set_text_hidden(True)
                             showPassword = False
                         showPasswordButton.pressed = False
@@ -161,7 +159,6 @@ def accountCreation():
         logo =gui.createImage(window, 50, 50, 75, 50, "images/Logo.png")
         gui.MANAGER.draw_ui(window)
         pygame.display.update()
-    print("While loop exited.")
 
 if __name__ == "__main__":
     accountCreation()

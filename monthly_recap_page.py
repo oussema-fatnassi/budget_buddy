@@ -6,9 +6,9 @@ from page_manager import PageManager
 import database_operation
 import datetime
 
-def monthlyTransactionList(retrieved_user):
+def monthlyTransactionList(retrieved_user):                                                                     # Show the monthly recap page where the user can select a month and year to display the transactions for that month
     gui = GUI()
-    window = gui.createWindow("Monthly Transaction List")
+    window = gui.createWindow("Monthly Recap Page")
     clock = pygame.time.Clock()
     uiRefreshRate = clock.tick(60) / 10000.0
     logo =gui.createImage(window, 50, 50, 75, 50, "images/Logo.png")
@@ -80,7 +80,7 @@ def monthlyTransactionList(retrieved_user):
         object_id="label"
     )
 
-    all_transactions = database_operation.get_all_transactions(retrieved_user[0])
+    all_transactions = database_operation.get_all_transactions(retrieved_user[0])                               # Get all transactions for the user
     lastTransactionsList.add_items(all_transactions)
     
     while True:
@@ -96,16 +96,14 @@ def monthlyTransactionList(retrieved_user):
                     elif event.ui_element == confirmButton:
                         selected_month = monthList.selected_option
                         selected_year = int(yearList.selected_option)
-                        month_number = datetime.datetime.strptime(selected_month, "%B").month                                        # Convert month name to number                 
-                        selected_month_year = datetime.date(selected_year, month_number,1)                                              # Format the selected date   
+                        month_number = datetime.datetime.strptime(selected_month, "%B").month                   # Convert month name to number                 
+                        selected_month_year = datetime.date(selected_year, month_number,1)                      # Format the selected date   
 
-                        transactions, total_income, total_expenses = database_operation.get_monthly_transactions(retrieved_user[0], month_number, selected_year)
+                        transactions, total_income, total_expenses = database_operation.get_monthly_transactions(retrieved_user[0], month_number, selected_year)        # Get transactions for the selected month
 
-                        # Display transactions in the list
-                        lastTransactionsList.remove_items(all_transactions)
-                        lastTransactionsList.add_items(transactions)
+                        lastTransactionsList.remove_items(all_transactions)                                     # Remove all transactions from the list
+                        lastTransactionsList.add_items(transactions)                                            # Add the transactions for the selected month to the list
 
-                        # Display total income and expenses
                         monthlyIncome.html_text = ""
                         monthlyIncome_text = str(total_income)
                         monthlyIncome.append_html_text(monthlyIncome_text)
@@ -117,7 +115,7 @@ def monthlyTransactionList(retrieved_user):
                 elif event.user_type == pygame_gui.UI_SELECTION_LIST_DOUBLE_CLICKED_SELECTION:
                     if event.ui_element == lastTransactionsList:
                         selected_item = event.text
-                        transaction_details = database_operation.get_transaction_details(selected_item, retrieved_user[0])
+                        transaction_details = database_operation.get_transaction_details(selected_item, retrieved_user[0])      # Get the details of the selected transaction
                         if transaction_details:
                             details_text = f"<b>Name:</b> {transaction_details['name']}<br>" \
                                f"<b>Description:</b> {transaction_details['description']}<br>" \

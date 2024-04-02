@@ -1,6 +1,6 @@
 import datetime
 
-class Transaction:
+class Transaction:                              # Class to represent a transaction     
     def __init__(self, name, description, amount, category, type, date):
         self.name = name
         self.description = description

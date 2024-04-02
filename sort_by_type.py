@@ -5,7 +5,7 @@ from GUI import GUI
 from page_manager import PageManager
 import database_operation
 
-def sortByType(retrieved_user):
+def sortByType(retrieved_user):                                                                             # Function to sort transactions by type
     gui = GUI()
     window = gui.createWindow("Sort By Type")
     clock = pygame.time.Clock()
@@ -42,7 +42,7 @@ def sortByType(retrieved_user):
     tool_tip_text="Return to filter page"
     )
 
-    all_transactions = database_operation.get_all_transactions(retrieved_user[0])
+    all_transactions = database_operation.get_all_transactions(retrieved_user[0])                           # Get all transactions from the database
     lastTransactionsList.add_items(all_transactions)
 
 
@@ -55,7 +55,7 @@ def sortByType(retrieved_user):
             gui.MANAGER.process_events(event)
 
             if event.type == pygame.USEREVENT:
-                if event.user_type == pygame_gui.UI_SELECTION_LIST_DOUBLE_CLICKED_SELECTION:
+                if event.user_type == pygame_gui.UI_SELECTION_LIST_DOUBLE_CLICKED_SELECTION:                # If the user double clicks on a transaction show the details of the transaction
                     if event.ui_element == lastTransactionsList:
                         selected_item = event.text 
                         transaction_details = database_operation.get_transaction_details(selected_item, retrieved_user[0])
@@ -76,7 +76,7 @@ def sortByType(retrieved_user):
                         )
 
                 elif event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == confirmButton:
+                    if event.ui_element == confirmButton:                                                   # If the user presses the confirm button, display the transactions for the selected type
                         selected_type = typeList.selected_option.upper()
                         transactions = database_operation.get_transactions_by_type(retrieved_user[0], selected_type)
                         lastTransactionsList.remove_items(all_transactions)

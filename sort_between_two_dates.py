@@ -6,7 +6,7 @@ from page_manager import PageManager
 import database_operation
 import datetime
 
-def sortBetweenTwoDates(retrieved_user):
+def sortBetweenTwoDates(retrieved_user):                                                                               # Function to filter transactions between two dates              
     gui = GUI()
     window = gui.createWindow("Filter Transactions Between Two Dates")
     clock = pygame.time.Clock()
@@ -94,7 +94,7 @@ def sortBetweenTwoDates(retrieved_user):
     tool_tip_text="Return to filter page"
     )
 
-    all_transactions = database_operation.get_all_transactions(retrieved_user[0])
+    all_transactions = database_operation.get_all_transactions(retrieved_user[0])                                       # Get all transactions for the user 
     lastTransactionsList.add_items(all_transactions)
 
     while True:
@@ -109,7 +109,7 @@ def sortBetweenTwoDates(retrieved_user):
                 if event.user_type == pygame_gui.UI_SELECTION_LIST_DOUBLE_CLICKED_SELECTION:
                     if event.ui_element == lastTransactionsList:
                         selected_item = event.text
-                        transaction_details = database_operation.get_transaction_details(selected_item, retrieved_user[0])
+                        transaction_details = database_operation.get_transaction_details(selected_item, retrieved_user[0])          # Get transaction details
                         details_text = ""
                         if transaction_details:
                             details_text = f"<b>Name:</b> {transaction_details['name']}<br>" \

@@ -1,4 +1,3 @@
-
 class PageManager:
     @staticmethod
     def show_add_transaction_page(user, user_retrieved):

@@ -63,7 +63,7 @@ class GUI:
             )
         self.dropDown.expand_on_option_click=False
     
-    def createSelectionList(self, window, pos_x, pos_y, width, height, options, bool):
+    def createSelectionList(self, window, pos_x, pos_y, width, height, options, bool):              # Method to create the selection list
             self.selectionList = pygame_gui.elements.UISelectionList(
                 relative_rect=pygame.Rect((pos_x, pos_y), (width, height)),
                 item_list=options,
@@ -71,7 +71,6 @@ class GUI:
                 manager=self.MANAGER,
                 object_id="selection_list"
             )
-            # Store a dictionary mapping each item to its corresponding message
             self.item_messages = {item: f"Message for {item}" for item in options}
 
     
@@ -85,7 +84,7 @@ class GUI:
     def set_text_hidden(self, is_hidden=True):                                                      # Method to hide the password input field
         self.passwordInput.set_text_hidden(is_hidden)
 
-    def createMessageBox(self, window, pos_x, pos_y, width, height, text):
+    def createMessageBox(self, window, pos_x, pos_y, width, height, text):                          # Method to create the message box
         self.messageBox = pygame_gui.windows.UIMessageWindow(
             rect=pygame.Rect((pos_x, pos_y), (width, height)),
             html_message=text,  
