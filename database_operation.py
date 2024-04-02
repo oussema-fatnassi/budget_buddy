@@ -42,6 +42,20 @@ def create_tables():                                                            
 
         cursor.execute(create_transactions_table_query)
 
+        # Define the SQL query to create the alerts table if it doesn't exist
+        create_alerts_table_query = """
+        CREATE TABLE IF NOT EXISTS alerts (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            user_id INT NOT NULL,
+            type ENUM('Overdraft', 'Other') NOT NULL,
+            message TEXT NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (user_id) REFERENCES users(id)
+        ) ENGINE=InnoDB;
+        """
+
+        cursor.execute(create_alerts_table_query)
+
         print("Tables created successfully.")
 
     except mysql.connector.Error as error:
@@ -546,10 +560,59 @@ def get_transactions_by_category_period(user_id, selected_month, selected_year):
             connection.close()
             print("MySQL connection is closed.")
 
+def get_alerts_for_user(user_id):
+    try:
+        connection = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="O*9GU9A9",
+            database="budget_buddy"
+        )
 
+        cursor = connection.cursor()
 
+        # Define the SQL query to retrieve alerts for the given user ID
+        get_alerts_query = "SELECT id, type, message, created_at FROM alerts WHERE user_id = %s"
+        cursor.execute(get_alerts_query, (user_id,))
+        
+        # Fetch all alerts
+        alerts = cursor.fetchall()
 
+        return alerts
 
+    except mysql.connector.Error as error:
+        print("Error retrieving alerts from MySQL:", error)
+        return []
 
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+            print("MySQL connection is closed.")
 
+def insert_alert(user_id, type,message):
+    try:
+        connection = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="O*9GU9A9",
+            database="budget_buddy"
+        )
 
+        cursor = connection.cursor()
+
+        # Define the SQL query to insert the alert into the database
+        insert_alert_query = "INSERT INTO alerts (user_id, type, message) VALUES (%s, %s, %s)"
+        cursor.execute(insert_alert_query, (user_id,type, message))
+
+        connection.commit()
+        print("Alert inserted successfully.")
+
+    except mysql.connector.Error as error:
+        print("Error inserting alert into MySQL table:", error)
+
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+            print("MySQL connection is closed.")

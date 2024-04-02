@@ -3,6 +3,7 @@ import pygame_gui
 import sys
 from GUI import GUI
 from page_manager import PageManager
+import database_operation
 
 def alerts(retrieved_user):
     gui = GUI()
@@ -14,7 +15,7 @@ def alerts(retrieved_user):
 
     alertsList = pygame_gui.elements.UISelectionList(
         relative_rect=pygame.Rect((50, 200), (300, 200)),
-        item_list=["Alert 1", "Alert 2", "Alert 3", "Alert 4", "Alert 5"],
+        item_list=[],
         manager=gui.MANAGER,
         object_id="alerts_list"
     )
@@ -25,6 +26,16 @@ def alerts(retrieved_user):
         object_id="close_button",
         tool_tip_text="Return to the user page"
     )
+
+    alerts_data = database_operation.get_alerts_for_user(retrieved_user[0])
+    alert_types = [alert[1] for alert in alerts_data]
+    alertsList.set_item_list(alert_types)
+
+# Print the extracted alert types
+    print(alert_types)
+    # for alert_type in types:
+    #     alertsList.add_items(alert_type)
+    
 
     while True:
         for event in pygame.event.get():
@@ -38,8 +49,21 @@ def alerts(retrieved_user):
                 if event.user_type == pygame_gui.UI_SELECTION_LIST_DOUBLE_CLICKED_SELECTION:
                     if event.ui_element == alertsList:
                         selected_item = event.text
-                        print("Double-click event detected")  # Debugging print statement
-                        gui.createMessageBox(window, 50, 50, 300, 300, selected_item)
+                        transaction_details = database_operation.get_transaction_details(selected_item, retrieved_user[0])
+                        if transaction_details:
+                            details_text = f"<b>Name:</b> {transaction_details['name']}<br>" \
+                               f"<b>Description:</b> {transaction_details['description']}<br>" \
+                               f"<b>Amount: € </b> {transaction_details['amount']}<br>" \
+                               f"<b>Category:</b> {transaction_details['category']}<br>" \
+                               f"<b>Type:</b> {transaction_details['type']}<br>" \
+                               f"<b>Date:</b> {transaction_details['date']}"
+                        pygame_gui.windows.UIMessageWindow(
+                            rect=pygame.Rect((50, 50), (300, 300)),
+                            html_message= details_text,
+                            manager=gui.MANAGER,
+                            window_title='Transaction Details',
+                            object_id="message_box"
+                        )
                 if event.ui_element == closeButton:
                     if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                         PageManager.show_user_page(retrieved_user)
