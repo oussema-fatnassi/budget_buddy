@@ -3,10 +3,11 @@ import pygame_gui
 import sys
 from GUI import GUI
 from datetime import datetime
-from database_operation import insert_transaction_data, create_tables
+import database_operation 
 from transaction import Transaction
 from user import User
 from page_manager import PageManager
+import alerts_page
 
 def addTransaction(user, user_retrieved):
     gui = GUI()
@@ -89,7 +90,6 @@ def addTransaction(user, user_retrieved):
         tool_tip_text="Return to user page"
     )
 
-
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -104,25 +104,31 @@ def addTransaction(user, user_retrieved):
                     category = categoryInput.selected_option
                     transaction_type = typeInput.selected_option
                     date = datetime.now().strftime("%Y-%m-%d")
+                    current_balance = database_operation.get_current_amount(user.id)
+
+                    if transaction_type == "Expense" and amount > current_balance:
+                        alert_message = "Attention: Your balance is not sufficient for this operation"
+                        pygame_gui.windows.UIMessageWindow(
+                            rect=pygame.Rect((50, 50), (300, 200)),
+                            html_message=alert_message,
+                            manager=gui.MANAGER,
+                            window_title='Overdraft Alert',
+                            object_id="alert_box"
+                        )
+                        database_operation.insert_alert(user.id,"Overdraft", alert_message)
+                    else:
+                        transaction = Transaction(name, description, amount, category, transaction_type, date)                  # Create Transaction object
+                        transactioDetails = pygame_gui.windows.UIMessageWindow(                                                 # Display transaction details
+                            rect=pygame.Rect((50, 50), (300, 300)),
+                            manager=gui.MANAGER,
+                            html_message=f"Name: {transaction.name}<br>Description: {transaction.description}<br>Amount: {transaction.amount}<br>Category: {transaction.category}<br>Type: {transaction.type}<br>Date: {transaction.date}",
+                            object_id="message_box"
+                        )
+                        database_operation.insert_transaction_data(user.id, transaction)                                                           # Insert transaction data into the database              
                     
-                    # Create Transaction object
-                    transaction = Transaction(name, description, amount, category, transaction_type, date)
-                    transactioDetails = pygame_gui.windows.UIMessageWindow(
-                        rect=pygame.Rect((50, 50), (300, 300)),
-                        manager=gui.MANAGER,
-                        html_message=f"Name: {transaction.name}<br>Description: {transaction.description}<br>Amount: {transaction.amount}<br>Category: {transaction.category}<br>Type: {transaction.type}<br>Date: {transaction.date}",
-                        object_id="message_box"
-                    )
-                    # Insert transaction into the database
-                    insert_transaction_data(user.id, transaction)
-                    
-                    # Optionally, you can clear the input fields after adding the transaction
-                    nameInput.set_text('')
+                    nameInput.set_text('')                                                                                  # Clear the input fields
                     descriptionInput.set_text('')
                     amountInput.set_text('')
-                    
-                    # Provide feedback to the user
-                    print("Transaction added successfully!")
                 if event.ui_element == closeButton:
                     PageManager.show_user_page(user_retrieved)
 
